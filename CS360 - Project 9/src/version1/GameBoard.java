@@ -1,4 +1,6 @@
 package version1;
+//Author David Bell
+
 //Creates a 9x9 board
 import java.util.*;
 
