@@ -17,6 +17,8 @@ public class P8Menu extends JFrame{
 	//Constructor
 	private BufferedImage kremlin;
 	//test
+	//test2
+	
 	public P8Menu() {
 		setSize(480, 260);
 		getContentPane().setLayout(null);
