@@ -12,4 +12,7 @@ public class TimedGame
 		queue = new Queue();
 		//TODO: Initialize the time variable
 	}
+	public int getTime(){
+		return 0;
+	}
 }
