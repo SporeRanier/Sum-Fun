@@ -33,23 +33,21 @@ public class GameBoard
 	//returns a copy of the gameBoard to show the player
 	public int [][] viewBoard()
 	{
-		System.out.println("I am before");
+		//TODO:System.out.println("I am before");
 		int [][] copyBoard = new int[9][];
-		System.out.println("I am after");
+		//TODO:System.out.println("I am after");
 		for(int i = 0; i < 9; i++){
 		    copyBoard[i] = gameBoard[i].clone();
-		    System.out.printf("%d,%d", i, copyBoard[i].length);
+		  //TODO:System.out.printf("%d,%d", i, copyBoard[i].length);
 		}
 		return copyBoard;
-		
 	}
 	
 	//Method taking care of the placement of a tile, returning 0 if no tiles are removed, and the score if tiles are removed
 	public int placeTile(int x, int y, int value)
 	{
 		//if the space is already occupied (being not 11)
-		if (gameBoard[x][y] != 11)
-		{
+		if (gameBoard[x][y] != 11){
 			return 12;
 		}
 		
@@ -80,19 +78,16 @@ public class GameBoard
 		//iterate through from min to max of x & y to clear the spaces
 		for (int j = xMin; j <= xMax; j++){
 			for (int k = yMin; k <= yMax; k++){
-				if (gameBoard[j][k] != 11){
-					
-					
+				if (gameBoard[j][k] != 11 && (!(j == x && k == y))){
 					total += gameBoard[j][k]; 
 					tileCount += 1;
-					
 				}
 			}
 		}
-		if ( (total % 10) == 0){
+		//check to see if the total is equal to the value of the placed tile
+		if ( (total % 10) == value){
 			clearAround(x, y);
-			if (tileCount >= 3)
-			{
+			if (tileCount >= 3){
 				return total * tileCount;
 			}
 			return total;
@@ -126,7 +121,7 @@ public class GameBoard
 		for (int j = xMin; j <= xMax; j++){
 			for (int k = yMin; k <= yMax; k++){
 				gameBoard[j][k] = (int) 11;
-				System.out.printf("Clear method %d,%d  %d\n", j, k, gameBoard[j][k]);
+				//TODO:System.out.printf("Clear method %d,%d  %d\n", j, k, gameBoard[j][k]);
 			}
 		}
 	}

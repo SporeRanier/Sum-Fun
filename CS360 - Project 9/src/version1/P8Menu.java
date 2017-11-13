@@ -56,7 +56,7 @@ public class P8Menu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			System.out.print("working");
+			//TODO:System.out.print("working");
 			P8NormalGameScreen game1 = new P8NormalGameScreen();
 			setVisible(false);
 			
@@ -68,7 +68,7 @@ public class P8Menu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent f) {
 			// TODO Auto-generated method stub
-			System.out.print("working");
+			//TODO:System.out.print("working");
 			TimedGameScreen game2 = new TimedGameScreen();
 			setVisible(false);
 			
