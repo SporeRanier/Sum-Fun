@@ -10,8 +10,8 @@ import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
 public class High_Scores {
-	private static String[] names;
-	private static int[] scores;
+	private String[] names;
+	private int[] scores;
 
 	public void addScore(String name, int score) throws IOException {
 		FileWriter fwriter = new FileWriter("HighScores.txt", true);
