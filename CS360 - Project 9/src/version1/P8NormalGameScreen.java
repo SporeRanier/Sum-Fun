@@ -38,17 +38,18 @@ public class P8NormalGameScreen extends JFrame{
 	JPanel panelC;
 	JPanel panelN;
 	JPanel panelS;
-	JPanel panelE;
+	JPanel panelB;
 	JPanel panelW;
-	JLabel movesLabel;
-	JLabel scoreLabel;
-	JLabel msLabel;
-	JLabel ms;
+	JLabel timeLabel;
 	JLabel queueN;
 	JLabel queueT[];
 	int moveScore;
+	JLabel scoreLabel;
+	JLabel movesLabel;
+	JLabel msLabel;
 	
 	public P8NormalGameScreen() {
+		setTitle("Sum Fun 0.9");
 		moveScore = 0;
 		gameBoard = new GameBoard();
 		queue = new Queue();
@@ -65,49 +66,35 @@ public class P8NormalGameScreen extends JFrame{
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnMusic = new JButton("Music 1");
+		btnMusic.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(btnMusic);
 		
 		JButton btnMusic_1 = new JButton("Music 2");
+		btnMusic_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(btnMusic_1);
 		
 		JButton btnNewButton = new JButton("Mute");
+		btnNewButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(btnNewButton);
 		
-		JLabel label = new JLabel("                                                                                                                                                                                                                          ");
+		JButton btnQuit = new JButton("Quit");
+		btnQuit.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panelN.add(btnQuit);
+		
+		JLabel label = new JLabel("                                                                                                                                                                                                                  ");
 		panelN.add(label);
 		
 		JLabel lblNewLabel_2 = new JLabel("Queue");
+		lblNewLabel_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panelN.add(lblNewLabel_2);
 		
 		panelS = new JPanel();
 		getContentPane().add(panelS, BorderLayout.SOUTH);
 		
-		JButton btnQuit = new JButton("Quit");
-		panelS.add(btnQuit);
-		
-		panelE = new JPanel();
-		getContentPane().add(panelE, BorderLayout.EAST);
-		panelE.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JPanel panelW = new JPanel();
-		getContentPane().add(panelW, BorderLayout.WEST);
-		
-		JLabel lblNewLabel = new JLabel("Turn Count:   ");
-		
-		movesLabel = new JLabel(String.format("%d", moves));
-		ms = new JLabel("Move Score"); 
-		msLabel = new JLabel(String.format("%d", moveScore));
-		panelW.setLayout(new GridLayout(0, 2, 0, 0));
-		panelW.add(lblNewLabel);
-		panelW.add(movesLabel);
+		panelB = new JPanel();
+		getContentPane().add(panelB, BorderLayout.EAST);
+		panelB.setLayout(new GridLayout(1, 0, 0, 0));
 		queueN = new JLabel("Queue");
-		JLabel lblNewLabel_1 = new JLabel("Score");
-		panelW.add(lblNewLabel_1);
-		panelW.add(ms);
-		panelW.add(msLabel);
-		
-		scoreLabel = new JLabel("0");
-		panelW.add(scoreLabel);
 		
 		buildPanel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,12 +142,49 @@ public class P8NormalGameScreen extends JFrame{
 	//Creates the queue
 	{
 		
-		panelE.setLayout(new GridLayout(5,1));
+		panelB.setLayout(new GridLayout(5,1));
+		
+		JPanel panelE = new JPanel();
+		panelB.add(panelE);
+		panelE.setLayout(new GridLayout(5, 1, 0, 0));
+		
+		JPanel panel2 = new JPanel();
+		panelB.add(panel2);
+		panel2.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JLabel label = new JLabel("Turn Count:   ");
+		label.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panel2.add(label);
+		
+		msLabel = new JLabel("50");
+		msLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		msLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+		panel2.add(msLabel);
+		
+		JLabel label_2 = new JLabel("Score:");
+		label_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panel2.add(label_2);
+		
+		scoreLabel = new JLabel("0");
+		scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		scoreLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+		panel2.add(scoreLabel);
+		
+		JLabel moves = new JLabel("Move Score:");
+		moves.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panel2.add(moves);
+		
+		movesLabel = new JLabel("0");
+		movesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		movesLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+		panel2.add(movesLabel);
 		
 		queueT = new JLabel[5];
 		int queueI[] = queue.viewQueue();
 		for (int x = 0; x <= 4; x++){
-			queueT[x] = new JLabel(String.format("      %d      ", queueI[x]));
+			queueT[x] = new JLabel(String.format("%d            ", queueI[x]));
+			queueT[x].setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+			queueT[x].setHorizontalAlignment(SwingConstants.RIGHT);
 			panelE.add(queueT[x]);
 		}
 		
@@ -180,6 +204,7 @@ public class P8NormalGameScreen extends JFrame{
 			for (int y = 0; y <= 8; y++){
 				if (intBoard[x][y] != 11){
 					tiles[x][y] = new JButton(String.format("%d", intBoard[x][y]));
+					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 					tiles[x][y].putClientProperty("row", x);
 					tiles[x][y].putClientProperty("column", y);
 					tiles[x][y].addActionListener(new SpaceListener());
@@ -187,6 +212,7 @@ public class P8NormalGameScreen extends JFrame{
 				}
 				else {
 					tiles[x][y] = new JButton(String.format(""));
+					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 					tiles[x][y].putClientProperty("row", x);
 					tiles[x][y].putClientProperty("column", y);
 					tiles[x][y].addActionListener(new SpaceListener());
@@ -199,7 +225,7 @@ public class P8NormalGameScreen extends JFrame{
 	//Updates queue
 	{
 		for (int x = 0; x <= 4; x++){
-			queueT[x].setText(String.format("%d", newQueue[x]));
+			queueT[x].setText(String.format("%d            ", newQueue[x]));
 		}
 	}
 	
@@ -210,9 +236,11 @@ public class P8NormalGameScreen extends JFrame{
 			for (int y = 0; y <= 8; y++){
 				if (newBoard[x][y] != 11){
 					tiles[x][y].setText(String.format("%d", newBoard[x][y]));
+					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 				}
 				else {
 					tiles[x][y].setText(String.format(""));
+					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 				}
 			}
 		}

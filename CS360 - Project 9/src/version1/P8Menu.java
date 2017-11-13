@@ -20,8 +20,9 @@ public class P8Menu extends JFrame{
 		
 		JButton btnStartAdvancedGame = new JButton("Start Advanced Game");
 		btnStartAdvancedGame.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnStartAdvancedGame.addActionListener(new AdvancedButtonListener());
 		btnStartAdvancedGame.setBounds(575, 288, 260, 105);
-		btnStartAdvancedGame.setToolTipText("Not yet implemented");
+		btnStartAdvancedGame.setToolTipText("In Progress");
 		getContentPane().add(btnStartAdvancedGame);
 		setVisible(true);
 		
@@ -33,6 +34,18 @@ public class P8Menu extends JFrame{
 			// TODO Auto-generated method stub
 			System.out.print("working");
 			P8NormalGameScreen game1 = new P8NormalGameScreen();
+			setVisible(false);
+			
+		}
+}
+
+	private class AdvancedButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent f) {
+			// TODO Auto-generated method stub
+			System.out.print("working");
+			TimedGameScreen game2 = new TimedGameScreen();
 			setVisible(false);
 			
 		}
