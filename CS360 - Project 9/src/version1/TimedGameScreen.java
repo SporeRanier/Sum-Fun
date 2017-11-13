@@ -269,8 +269,8 @@ public class TimedGameScreen extends JFrame{
 					scoreLabel.setText(String.format("%d", score));
 					queue.useQueue();
 					moves --;
-					movesLabel.setText(String.format("%d", moves));
-					msLabel.setText(String.format("%d", moveScore));
+					//msLabel.setText(String.format("%d", moves));
+					movesLabel.setText(String.format("%d", moveScore));
 					
 				}
 				
