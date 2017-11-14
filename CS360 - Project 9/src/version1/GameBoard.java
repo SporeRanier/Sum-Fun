@@ -1,16 +1,17 @@
 package version1;
 //Author David Bell
-
-//Creates a 9x9 board
+//Creates a 9x9 board and interacts with that board
 import java.util.*;
 
-public class GameBoard 
+public class GameBoard extends Observable
 {
+	private static GameBoard boardInstance = new GameBoard();
+	
 	//stores the actual board
 	int gameBoard[][];
 	
 	//constructor that creates a board of 9*9 containing random numbers from 0 to 9
-	public GameBoard()
+	private GameBoard()
 	{	
 		Random random = new Random();
 		//instantiates gameBoard of 9x9
@@ -30,6 +31,12 @@ public class GameBoard
 			}
 		}
 	}
+	
+	public static GameBoard getBoard()
+	{
+		return boardInstance;
+	}
+	
 	//returns a copy of the gameBoard to show the player
 	public int [][] viewBoard()
 	{
@@ -88,15 +95,21 @@ public class GameBoard
 		if ( (total % 10) == value){
 			clearAround(x, y);
 			if (tileCount >= 3){
+				setChanged();
+				notifyObservers();
 				return total * tileCount;
 			}
+			setChanged();
+			notifyObservers();
 			return total;
 		}
 		//Result of 0 means no tiles removed
+		setChanged();
+		notifyObservers();
 		return 0;
 	}
 	//clears the tiles around x,y (meaning they are replaced by the value 11)
-	public void clearAround(int x, int y)
+	private void clearAround(int x, int y)
 	{
 		//indicates the bounds of checked area (being 1 away from the center (x,y))
 		int xMin = x-1;

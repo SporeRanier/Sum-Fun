@@ -25,8 +25,8 @@ public class Gui extends JFrame
 	
 	public Gui()
 	{
-		gameBoard = new GameBoard();
-		queue = new Queue();
+		gameBoard = GameBoard.getBoard();
+		queue = Queue.getQueue();
 		moves = 50;
 		
 		setTitle("Sum Fun");
