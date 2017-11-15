@@ -17,6 +17,7 @@ import java.net.URI;
 import java.net.URL;
 import javax.swing.GroupLayout.Alignment;
 
+
 public class P8NormalGameScreen extends JFrame{
 	private JButton tiles[][];
 	private JButton offButton;
@@ -59,25 +60,35 @@ public class P8NormalGameScreen extends JFrame{
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		panelC = new JPanel();
+		panelC.setBackground(new Color(178, 34, 34));
 		getContentPane().add(panelC, BorderLayout.CENTER);
 		
 		panelN = new JPanel();
+		panelN.setBackground(Color.BLACK);
 		getContentPane().add(panelN, BorderLayout.NORTH);
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnMusic = new JButton("Music 1");
+		btnMusic.setForeground(new Color(255, 255, 0));
+		btnMusic.setBackground(new Color(178, 34, 34));
 		btnMusic.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(btnMusic);
 		
 		JButton btnMusic_1 = new JButton("Music 2");
+		btnMusic_1.setBackground(new Color(178, 34, 34));
+		btnMusic_1.setForeground(Color.YELLOW);
 		btnMusic_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(btnMusic_1);
 		
 		JButton btnNewButton = new JButton("Mute");
+		btnNewButton.setBackground(new Color(178, 34, 34));
+		btnNewButton.setForeground(Color.YELLOW);
 		btnNewButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(btnNewButton);
 		
 		JButton btnQuit = new JButton("Quit");
+		btnQuit.setForeground(Color.YELLOW);
+		btnQuit.setBackground(new Color(178, 34, 34));
 		btnQuit.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(btnQuit);
 		
@@ -85,6 +96,7 @@ public class P8NormalGameScreen extends JFrame{
 		panelN.add(label);
 		
 		JLabel lblNewLabel_2 = new JLabel("Queue");
+		lblNewLabel_2.setForeground(Color.YELLOW);
 		lblNewLabel_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panelN.add(lblNewLabel_2);
 		
@@ -92,8 +104,8 @@ public class P8NormalGameScreen extends JFrame{
 		getContentPane().add(panelS, BorderLayout.SOUTH);
 		
 		panelB = new JPanel();
+		panelB.setBackground(Color.BLACK);
 		getContentPane().add(panelB, BorderLayout.EAST);
-		panelB.setLayout(new GridLayout(1, 0, 0, 0));
 		queueN = new JLabel("Queue");
 		
 		buildPanel();
@@ -112,6 +124,8 @@ public class P8NormalGameScreen extends JFrame{
 		BGM1.setToolTipText("Starts playing song 1");
 		BGM2 = new JButton("Music 2");
 		BGM2.setToolTipText("Starts playing song 2");
+		BGM1.addActionListener(new MusicButtonListener());
+		BGM2.addActionListener(new MusicButtonListener());
 		
 		Music1 = new File("katyusha.wav");
 		Music2 = new File("koro.wav");
@@ -138,52 +152,143 @@ public class P8NormalGameScreen extends JFrame{
 		}
 		
 	}
+	// Operates Music
+		private class MusicButtonListener implements ActionListener {
+
+			
+			public void actionPerformed(ActionEvent RCA) {
+				if(RCA.getSource() == BGM1){
+					sound2.stop();
+					sound1.loop();
+				}
+				if(RCA.getSource() == BGM2){
+					sound1.stop();
+					sound2.loop();
+					
+				}
+				if(RCA.getSource() == offButton){
+					sound1.stop();
+					sound2.stop();
+				}
+				
+			}
+			
+		}
 	private void createQueueGui()
 	//Creates the queue
 	{
-		
-		panelB.setLayout(new GridLayout(5,1));
+		panelB.setLayout(null);
+		GridBagLayout gbl_panelB = new GridBagLayout();
+		gbl_panelB.columnWidths = new int[]{202, 0};
+		gbl_panelB.rowHeights = new int[] {202, 0, 180, 70, 202};
+		gbl_panelB.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panelB.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		panelB.setLayout(gbl_panelB);
 		
 		JPanel panelE = new JPanel();
-		panelB.add(panelE);
+		panelE.setBounds(0, 0, 202, 137);
+		panelE.setForeground(Color.YELLOW);
+		panelE.setBackground(Color.BLACK);
+		GridBagConstraints gbc_panelE = new GridBagConstraints();
+		gbc_panelE.fill = GridBagConstraints.BOTH;
+		gbc_panelE.insets = new Insets(0, 0, 5, 0);
+		gbc_panelE.gridx = 0;
+		gbc_panelE.gridy = 0;
+		panelB.add(panelE, gbc_panelE);
 		panelE.setLayout(new GridLayout(5, 1, 0, 0));
 		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
+		panel.setBounds(0, 494, 202, 54);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 1;
+		panelB.add(panel, gbc_panel);
+		
+		JButton btnReset = new JButton("Reset Queue!");
+		panel.add(btnReset);
+		btnReset.setForeground(Color.YELLOW);
+		btnReset.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		btnReset.setBackground(new Color(178, 34, 34));
+		
 		JPanel panel2 = new JPanel();
-		panelB.add(panel2);
+		panel2.setBounds(0, 137, 202, 137);
+		panel2.setBackground(Color.BLACK);
+		GridBagConstraints gbc_panel2 = new GridBagConstraints();
+		gbc_panel2.fill = GridBagConstraints.BOTH;
+		gbc_panel2.insets = new Insets(0, 0, 5, 0);
+		gbc_panel2.gridx = 0;
+		gbc_panel2.gridy = 2;
+		panelB.add(panel2, gbc_panel2);
 		panel2.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel label = new JLabel("Turn Count:   ");
+		label.setBackground(Color.BLACK);
+		label.setForeground(Color.YELLOW);
 		label.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panel2.add(label);
 		
 		msLabel = new JLabel("50");
+		msLabel.setForeground(Color.YELLOW);
 		msLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		msLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panel2.add(msLabel);
 		
 		JLabel label_2 = new JLabel("Score:");
+		label_2.setForeground(Color.YELLOW);
 		label_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panel2.add(label_2);
 		
 		scoreLabel = new JLabel("0");
+		scoreLabel.setForeground(Color.YELLOW);
 		scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		scoreLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panel2.add(scoreLabel);
 		
-		JLabel moves = new JLabel("Move Score:");
-		moves.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panel2.add(moves);
+		JLabel moves_1 = new JLabel("Move Score:");
+		moves_1.setForeground(Color.YELLOW);
+		moves_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panel2.add(moves_1);
 		
 		movesLabel = new JLabel("0");
+		movesLabel.setForeground(Color.YELLOW);
 		movesLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		movesLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panel2.add(movesLabel);
+		
+		JLabel reset = new JLabel("Resets:");
+		reset.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		reset.setForeground(Color.YELLOW);
+		panel2.add(reset);
+		
+		JLabel resetLabel = new JLabel("1");
+		resetLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+		resetLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		resetLabel.setForeground(Color.YELLOW);
+		panel2.add(resetLabel);
+		
+		JPanel panelSU = new JPanel();
+		panelSU.setBounds(0, 274, 202, 202);
+		panelSU.setBackground(Color.BLACK);
+		GridBagConstraints gbc_panelSU = new GridBagConstraints();
+		gbc_panelSU.fill = GridBagConstraints.BOTH;
+		gbc_panelSU.gridx = 0;
+		gbc_panelSU.gridy = 4;
+		panelB.add(panelSU, gbc_panelSU);
+		
+		JLabel stalin = new JLabel("");
+		stalin.setBackground(Color.BLACK);
+		stalin.setIcon(new ImageIcon("C:\\Users\\mjwol\\Pictures\\nid8.gif"));
+		panelSU.add(stalin);
 		
 		queueT = new JLabel[5];
 		int queueI[] = queue.viewQueue();
 		for (int x = 0; x <= 4; x++){
 			queueT[x] = new JLabel(String.format("%d            ", queueI[x]));
 			queueT[x].setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+			queueT[x].setForeground(Color.YELLOW);
 			queueT[x].setHorizontalAlignment(SwingConstants.RIGHT);
 			panelE.add(queueT[x]);
 		}
@@ -208,6 +313,8 @@ public class P8NormalGameScreen extends JFrame{
 					tiles[x][y].putClientProperty("row", x);
 					tiles[x][y].putClientProperty("column", y);
 					tiles[x][y].addActionListener(new SpaceListener());
+					tiles[x][y].setForeground(Color.YELLOW);
+					tiles[x][y].setBackground(new Color(178, 34, 34));
 					panelC.add(tiles[x][y]);
 				}
 				else {
@@ -216,6 +323,8 @@ public class P8NormalGameScreen extends JFrame{
 					tiles[x][y].putClientProperty("row", x);
 					tiles[x][y].putClientProperty("column", y);
 					tiles[x][y].addActionListener(new SpaceListener());
+					tiles[x][y].setForeground(Color.YELLOW);
+					tiles[x][y].setBackground(new Color(178, 34, 34));
 					panelC.add(tiles[x][y]);
 				}
 			}
@@ -237,10 +346,14 @@ public class P8NormalGameScreen extends JFrame{
 				if (newBoard[x][y] != 11){
 					tiles[x][y].setText(String.format("%d", newBoard[x][y]));
 					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
+					tiles[x][y].setForeground(Color.YELLOW);
+					tiles[x][y].setBackground(new Color(178, 34, 34));
 				}
 				else {
 					tiles[x][y].setText(String.format(""));
 					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
+					tiles[x][y].setForeground(Color.YELLOW);
+					tiles[x][y].setBackground(new Color(178, 34, 34));
 				}
 			}
 		}
