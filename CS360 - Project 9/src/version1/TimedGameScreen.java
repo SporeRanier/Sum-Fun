@@ -55,8 +55,8 @@ public class TimedGameScreen extends JFrame{
 		public TimedGameScreen() {
 			setTitle("Sum Fun 0.9");
 			moveScore = 0;
-			gameBoard = new GameBoard();
-			queue = new Queue();
+			gameBoard = GameBoard.getBoard();
+			queue = Queue.getQueue();
 			tiles = new JButton[9][9];
 			moves = 50;
 			setSize(1024, 768);

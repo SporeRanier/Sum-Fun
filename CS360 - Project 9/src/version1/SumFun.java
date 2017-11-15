@@ -4,8 +4,8 @@ package version1;
 public class SumFun {
 
 	public static void main(String[] args) {
-		GameBoard board = new GameBoard();
-		Queue queue = new Queue();
+		GameBoard board = GameBoard.getBoard();
+		Queue queue = Queue.getQueue();
 		
 		int testQueue[] = queue.viewQueue();
 		System.out.printf("Queue: %d %d %d %d %d \n", testQueue[0],testQueue[1],testQueue[2],testQueue[3],testQueue[4]);

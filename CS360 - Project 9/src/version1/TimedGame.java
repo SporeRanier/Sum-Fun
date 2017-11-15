@@ -8,8 +8,8 @@ public class TimedGame
 	
 	public TimedGame()
 	{
-		gameBoard = new GameBoard();
-		queue = new Queue();
+		gameBoard = GameBoard.getBoard();
+		queue = Queue.getQueue();
 		//TODO: Initialize the time variable
 	}
 	public int getTime(){
