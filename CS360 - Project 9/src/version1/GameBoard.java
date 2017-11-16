@@ -88,9 +88,9 @@ public class GameBoard extends Observable
 	//Method taking care of the placement of a tile, returning 0 if no tiles are removed, and the score if tiles are removed
 	public int placeTile(int x, int y, int value)
 	{
-		//if the space is already occupied (being not 11), return an error code (12)
+		//if the space is already occupied (being not 11), return an error code (-1)
 		if (gameBoard[x][y] != 11){
-			return 12;
+			return -1;
 		}
 		//place the newly input value (parameter) into the gameboard
 		gameBoard[x][y] = value;
@@ -123,9 +123,9 @@ public class GameBoard extends Observable
 			notifyObservers();
 			return total;
 		}
-		//Result of 0 means no tiles removed
 		setChanged();
 		notifyObservers();
+		//Result of 0 means no tiles removed
 		return 0;
 	}
 	//clears the tiles around x,y (meaning they are replaced by the value 11)
@@ -140,5 +140,4 @@ public class GameBoard extends Observable
 			}
 		}
 	}
-	
 }

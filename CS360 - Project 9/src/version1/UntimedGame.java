@@ -1,30 +1,30 @@
 package version1;
-//Author David Bell
-/*holds all information for a single, untimed game 
+//Author David Bell\
+/*holds all information for a single, timed game 
  *(including Gameboard, Queue, Moves, and Score) 
  */
-import java.util.*;
+import java.util.Observable;
 
-public class TimedGame extends Observable
+public class UntimedGame extends Observable
 {
-	private static TimedGame TimedInstance = new TimedGame();
+	private static UntimedGame UntimedInstance = new UntimedGame();
 	
 	private GameBoard gameBoard;
 	private Queue queue;
-	//TODO: private __ time;
+	private int moves;
 	private int totalScore = 0;
 	private int moveScore = 0;
-	//constructor for a singleton TimedGame
-	private TimedGame()
+	//Constructor for a singleton UntimedGame
+	private UntimedGame()
 	{
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();
-		//TODO: Time = 2:00;
+		moves = 50;
 	}
-	//accessor for a TimedGame
-	public static TimedGame getTimedGame()
+	//access to the UntimedGame
+	public static UntimedGame getUntimedGame()
 	{
-		return TimedInstance;
+		return UntimedInstance;
 	}
 	//returns a copy of the board
 	public int[][] viewBoard()
@@ -46,6 +46,7 @@ public class TimedGame extends Observable
 		}
 		//remove the top of the queue and generate a new value
 		queue.useQueue();
+		moves--;
 		totalScore += moveScore;
 		//notify observers
 		setChanged();
@@ -66,6 +67,21 @@ public class TimedGame extends Observable
 	public boolean refreshLeft()
 	{
 		return queue.refreshLeft();
+	}
+	//returns the remaining moves
+	public int getMoves()
+	{
+		return moves;
+	}
+	//removes a move and returns the turns remaining
+	//TODO: Remove?
+	public int useMove()
+	{
+		moves--;
+		//notify observers
+		setChanged();
+		notifyObservers();
+		return moves;
 	}
 	//returns the value of totalScore
 	public int getScore()
