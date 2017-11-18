@@ -442,14 +442,15 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	}
 	@Override
 	public void update(Observable o, Object arg) {
-		if (moveScore != -1)
+		if (gameDriver.getMoveScore() != -1)
+			
 		{
 			
 			scoreLabel.setText(String.format("%d", gameDriver.getScore()));
 			
 			
 			msLabel.setText(String.format("%d", gameDriver.getMoves()));
-			movesLabel.setText(String.format("%d", moveScore));
+			movesLabel.setText(String.format("%d", gameDriver.getMoveScore()));
 			
 		}
 		

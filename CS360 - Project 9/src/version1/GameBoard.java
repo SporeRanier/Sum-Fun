@@ -3,7 +3,7 @@ package version1;
 //Creates a 9x9 board and interacts with that board
 import java.util.*;
 
-public class GameBoard extends Observable
+public class GameBoard
 {
 	private static GameBoard boardInstance = new GameBoard();
 	//stores the actual board
@@ -119,21 +119,15 @@ public class GameBoard extends Observable
 			clearAround(x, y);
 			tilesPlaced -= tileCount + 1;
 			if (tileCount >= 3){
-				setChanged();
-				notifyObservers();
 				return total * tileCount;
 			}
-			setChanged();
-			notifyObservers();
 			return total;
 		}
-		//TODO: TEST
+		//This line removes 0 placed on the board if they don't remove other 0s
 		else if (value == 0)
 		{
 			gameBoard[x][y] = 11;
 		}
-		setChanged();
-		notifyObservers();
 		//Result of 0 means no tiles removed
 		return 0;
 	}

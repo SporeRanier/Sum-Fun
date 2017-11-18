@@ -2,10 +2,9 @@ package version1;
 //Author David Bell
 //Class representing a queue of 5 integers (0-9)
 //Also includes logic for a single refresh of the queue
-import java.util.Observable;
-import java.util.Random;
+import java.util.*;
 
-public class Queue extends Observable
+public class Queue
 {
 	private static Queue queueInstance = new Queue();
 	
@@ -50,9 +49,6 @@ public class Queue extends Observable
 		}
 		//generate a new value at the bottom of the queue
 		queue[queue.length-1] = random.nextInt(10);
-		//notify observers
-		setChanged();
-		notifyObservers();
 		return top;
 	}
 	//returns the first value in the queue.
@@ -72,8 +68,6 @@ public class Queue extends Observable
 			generateQueue();
 			refreshLeft = false;
 			//notify observers
-			setChanged();
-			notifyObservers();
 			return true;
 		}
 		return refreshLeft;

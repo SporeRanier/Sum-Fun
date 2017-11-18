@@ -49,6 +49,7 @@ public class UntimedGame extends Observable
 		moves--;
 		totalScore += moveScore;
 		//notify observers
+		System.out.printf("Score: %d  MoveScore: %d\n", totalScore, moveScore);
 		setChanged();
 		notifyObservers();
 		return moveScore;
@@ -58,7 +59,7 @@ public class UntimedGame extends Observable
 	{
 		return queue.viewQueue();
 	}
-	//TODO: NEW
+	//Allows the caller to view what the top of the queue is without using it
 	public int viewTop()
 	{
 		return queue.viewTop();
@@ -92,5 +93,10 @@ public class UntimedGame extends Observable
 	public int getScore()
 	{
 		return totalScore;
+	}
+	
+	public int getMoveScore()
+	{
+		return moveScore;
 	}
 }
