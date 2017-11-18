@@ -57,6 +57,11 @@ public class TimedGame extends Observable
 	{
 		return queue.viewQueue();
 	}
+	//Allows the caller to view what the top of the queue is without using it
+	public int viewTop()
+	{
+		return queue.viewTop();
+	}
 	//refreshes the queue, true means the refresh happened
 	public boolean refreshQueue()
 	{
@@ -71,6 +76,10 @@ public class TimedGame extends Observable
 	public int getScore()
 	{
 		return totalScore;
+	}
+	public int getMoveScore()
+	{
+		return moveScore;
 	}
 	
 }
