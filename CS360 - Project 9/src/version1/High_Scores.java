@@ -13,6 +13,10 @@ public class High_Scores {
 	private String[] names;
 	private int[] scores;
 
+	public High_Scores(){
+		names = new String[10];
+		scores = new int[10];
+	}
 	public void addScore(String name, int score) throws IOException {
 		FileWriter fwriter = new FileWriter("HighScores.txt", true);
 		PrintWriter outputFile = new PrintWriter(fwriter);
@@ -30,25 +34,27 @@ public class High_Scores {
 		while (inputFile.hasNext()) {
 			data = inputFile.nextLine();
 			StringTokenizer strTokenizer = new StringTokenizer(data, " ");
-			if (counter < 10) {
-				names[counter] = strTokenizer.nextToken();
-				scores[counter] = Integer.parseInt(strTokenizer.nextToken());
-			} else {
-				String tempName = strTokenizer.nextToken();
-				int tempScore = Integer.parseInt(strTokenizer.nextToken());
-				int temp = 0;
-				String temp2 = "";
-				for (int i = 0; i < scores.length; i++) {
-					if (tempScore > scores[i]) {
-						for (int j = i; j < scores.length - 1; j++) {
-							temp = scores[j];
-							temp2 = names[j];
-							scores[j] = tempScore;
-							names[j] = tempName;
-							scores[j + 1] = temp;
-							names[j + 1] = temp2;
-						}
+			while (strTokenizer.hasMoreTokens()) {
+				if (counter < 10) {
+					names[counter] = strTokenizer.nextToken();
+					scores[counter] = Integer.parseInt(strTokenizer.nextToken());
+				} else {
+					String tempName = strTokenizer.nextToken();
+					int tempScore = Integer.parseInt(strTokenizer.nextToken());
+					int temp = 0;
+					String temp2 = "";
+					for (int i = 0; i < scores.length; i++) {
+						if (tempScore > scores[i]) {
+							for (int j = i; j < scores.length - 1; j++) {
+								temp = scores[j];
+								temp2 = names[j];
+								scores[j] = tempScore;
+								names[j] = tempName;
+								scores[j + 1] = temp;
+								names[j + 1] = temp2;
+							}
 
+						}
 					}
 				}
 			}
@@ -65,5 +71,36 @@ public class High_Scores {
 						+ names[5] + "\t" + scores[5] + "\n" + "7th Place:\t" + names[6] + "\t" + scores[6] + "\n"
 						+ "8th Place:\t" + names[7] + "\t" + scores[7] + "\n" + "9th Place:\t" + names[8] + "\t"
 						+ scores[8] + "\n" + "10th Place:\t" + names[9] + "\t" + scores[9]);
+	}
+	public void testScores(String[] namesTest, int[] scoresTest){
+		String tempName = "";
+		int tempScore = 0;
+		int temp = 0;
+		String temp2 = "";
+		int counter = 0;
+		while(counter < scoresTest.length){
+			if(counter < 10){
+				scores[counter] = scoresTest[counter];
+				names[counter] = namesTest[counter];
+			}
+			else{
+				tempScore = scoresTest[counter];
+				tempName = namesTest[counter];
+				for (int i = 0; i < scores.length; i++) {
+					if (tempScore > scores[i]) {
+						for (int j = i; j < scores.length - 1; j++) {
+							temp = scores[j];
+							temp2 = names[j];
+							scores[j] = tempScore;
+							names[j] = tempName;
+							scores[j + 1] = temp;
+							names[j + 1] = temp2;
+						}
+
+					}
+				}
+			}
+			counter++;
+		}
 	}
 }
