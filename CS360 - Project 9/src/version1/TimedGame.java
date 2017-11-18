@@ -72,4 +72,5 @@ public class TimedGame extends Observable
 	{
 		return totalScore;
 	}
+	
 }

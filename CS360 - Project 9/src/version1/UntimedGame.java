@@ -58,6 +58,11 @@ public class UntimedGame extends Observable
 	{
 		return queue.viewQueue();
 	}
+	//TODO: NEW
+	public int viewTop()
+	{
+		return queue.viewTop();
+	}
 	//refreshes the queue, true means the refresh happened
 	public boolean refreshQueue()
 	{
