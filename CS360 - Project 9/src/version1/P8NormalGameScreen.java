@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -23,14 +24,20 @@ public class P8NormalGameScreen extends JFrame{
 	private JButton offButton;
 	private JButton BGM1;
 	private JButton BGM2;
+	private JButton BGM3;
+	private JButton quitButton;
 	private File Music1;
 	private File Music2;
+	private File Music3;
 	private URI uri1;
 	private URI uri2;
+	private URI uri3;
 	private URL url1;
 	private URL url2;
+	private URL url3;
 	private AudioClip sound1;
 	private AudioClip sound2;
+	private AudioClip sound3;
 	GameBoard gameBoard;
 	Queue queue;
 	int score;
@@ -50,7 +57,7 @@ public class P8NormalGameScreen extends JFrame{
 	JLabel msLabel;
 	
 	public P8NormalGameScreen() {
-		setTitle("Sum Fun 0.9");
+		setTitle("Sum Fun 0.97");
 		moveScore = 0;
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();
@@ -68,31 +75,44 @@ public class P8NormalGameScreen extends JFrame{
 		getContentPane().add(panelN, BorderLayout.NORTH);
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnMusic = new JButton("Music 1");
-		btnMusic.setForeground(new Color(255, 255, 0));
-		btnMusic.setBackground(new Color(178, 34, 34));
-		btnMusic.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panelN.add(btnMusic);
+		BGM1 = new JButton("Music 1");
+		BGM1.setForeground(new Color(255, 255, 0));
+		BGM1.setBackground(new Color(178, 34, 34));
+		BGM1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		BGM1.setToolTipText("Starts playing song 1");
+		panelN.add(BGM1);
 		
-		JButton btnMusic_1 = new JButton("Music 2");
-		btnMusic_1.setBackground(new Color(178, 34, 34));
-		btnMusic_1.setForeground(Color.YELLOW);
-		btnMusic_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panelN.add(btnMusic_1);
+		BGM2 = new JButton("Music 2");
+		BGM2.setBackground(new Color(178, 34, 34));
+		BGM2.setForeground(Color.YELLOW);
+		BGM2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		BGM2.setToolTipText("Starts playing song 2");
+		panelN.add(BGM2);
 		
-		JButton btnNewButton = new JButton("Mute");
-		btnNewButton.setBackground(new Color(178, 34, 34));
-		btnNewButton.setForeground(Color.YELLOW);
-		btnNewButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panelN.add(btnNewButton);
+		BGM3 = new JButton("Music 3");
+		BGM3.setBackground(new Color(178, 34, 34));
+		BGM3.setForeground(Color.YELLOW);
+		BGM3.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		BGM3.setToolTipText("Starts playing song 2");
+		panelN.add(BGM3);
 		
-		JButton btnQuit = new JButton("Quit");
-		btnQuit.setForeground(Color.YELLOW);
-		btnQuit.setBackground(new Color(178, 34, 34));
-		btnQuit.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panelN.add(btnQuit);
+		offButton = new JButton("Mute");
+		offButton.setBackground(new Color(178, 34, 34));
+		offButton.setForeground(Color.YELLOW);
+		offButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panelN.add(offButton);
+		BGM1.addActionListener(new ButtonListener());
+		BGM2.addActionListener(new ButtonListener());
+		BGM3.addActionListener(new ButtonListener());
+		offButton.addActionListener(new ButtonListener());
+		quitButton = new JButton("Quit");
+		quitButton.setForeground(Color.YELLOW);
+		quitButton.setBackground(new Color(178, 34, 34));
+		quitButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		quitButton.addActionListener(new ButtonListener());
+		panelN.add(quitButton);
 		
-		JLabel label = new JLabel("                                                                                                                                                                                                                  ");
+		JLabel label = new JLabel("                                                                                                                                                                                        ");
 		panelN.add(label);
 		
 		JLabel lblNewLabel_2 = new JLabel("Queue");
@@ -120,22 +140,22 @@ public class P8NormalGameScreen extends JFrame{
 	public void buildPanel(){
 		
 		
-		BGM1 = new JButton("Music 1");
-		BGM1.setToolTipText("Starts playing song 1");
-		BGM2 = new JButton("Music 2");
-		BGM2.setToolTipText("Starts playing song 2");
-		BGM1.addActionListener(new MusicButtonListener());
-		BGM2.addActionListener(new MusicButtonListener());
+		
+		
+		
 		
 		Music1 = new File("katyusha.wav");
-		Music2 = new File("koro.wav");
+		Music2 = new File("rasputin.wav");
+		Music3 = new File("sacred.wav");
 		
 		URI uri1 = Music1.toURI();
 		URI uri2 = Music2.toURI();
+		URI uri3 = Music3.toURI();
 		URL url1;
 		try {
 			url1 = uri1.toURL();
 			sound1 = Applet.newAudioClip(url1);
+			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -150,30 +170,16 @@ public class P8NormalGameScreen extends JFrame{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {			
+			url3 = uri3.toURL();
+			sound3 = Applet.newAudioClip(url3);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
-	// Operates Music
-		private class MusicButtonListener implements ActionListener {
-
-			
-			public void actionPerformed(ActionEvent RCA) {
-				if(RCA.getSource() == BGM1){
-					sound2.stop();
-					sound1.loop();
-				}
-				if(RCA.getSource() == BGM2){
-					sound1.stop();
-					sound2.loop();
-					
-				}
-				if(RCA.getSource() == offButton){
-					sound1.stop();
-					sound2.stop();
-				}
-				
-			}
-			
-		}
+	
 	private void createQueueGui()
 	//Creates the queue
 	{
@@ -280,7 +286,7 @@ public class P8NormalGameScreen extends JFrame{
 		
 		JLabel stalin = new JLabel("");
 		stalin.setBackground(Color.BLACK);
-		stalin.setIcon(new ImageIcon("C:\\Users\\mjwol\\Pictures\\nid8.gif"));
+		stalin.setIcon(new ImageIcon("nid8.gif"));
 		panelSU.add(stalin);
 		
 		queueT = new JLabel[5];
@@ -358,6 +364,52 @@ public class P8NormalGameScreen extends JFrame{
 			}
 		}
 	}
+	// Operates Music
+	private class ButtonListener implements ActionListener {
+
+		
+				public void actionPerformed(ActionEvent RCA) {
+					if(RCA.getSource() == BGM1){
+						sound2.stop();
+						sound1.loop();
+						sound3.stop();
+					}
+					if(RCA.getSource() == BGM2){
+						sound1.stop();
+						sound2.loop();
+						sound3.stop();
+						
+					}
+					if(RCA.getSource() == BGM3){
+						sound1.stop();
+						sound2.stop();
+						sound3.loop();
+						
+					}
+					if(RCA.getSource() == offButton){
+						sound1.stop();
+						sound2.stop();
+						sound3.stop();
+					}
+					if(RCA.getSource() == quitButton){
+						sound1.stop();
+						sound2.stop();
+						sound3.stop();
+						try {
+							GameOverScreen gameoverquit = new GameOverScreen();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					else{
+						System.out.println("I got here2");
+					}
+					
+				}
+				
+			}
 	private class SpaceListener implements ActionListener
 	//Listener
 	{
@@ -372,7 +424,7 @@ public class P8NormalGameScreen extends JFrame{
 			//send the new value to the GameBoard for processing, which returns a score			
 			moveScore = gameBoard.placeTile((int) pressed.getClientProperty("row"), (int) pressed.getClientProperty("column"), (int) queue.viewTop());
 			//a value of 12 means the space is previously occupied
-			if (moveScore != 12)
+			if (moveScore != -1)
 			{
 				score += moveScore;
 				scoreLabel.setText(String.format("%d", score));
