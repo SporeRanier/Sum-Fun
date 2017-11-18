@@ -7,11 +7,11 @@ import java.util.*;
 
 public class TimedGame extends Observable
 {
-	private static TimedGame TimedInstance = new TimedGame();
+	private static TimedGame timedInstance = new TimedGame();
 	
 	private GameBoard gameBoard;
 	private Queue queue;
-	//TODO: private __ time;
+	//TODO: private __ time; //3:00 = 180 seconds
 	private int totalScore = 0;
 	private int moveScore = 0;
 	//constructor for a singleton TimedGame
@@ -24,7 +24,7 @@ public class TimedGame extends Observable
 	//accessor for a TimedGame
 	public static TimedGame getTimedGame()
 	{
-		return TimedInstance;
+		return timedInstance;
 	}
 	//returns a copy of the board
 	public int[][] viewBoard()

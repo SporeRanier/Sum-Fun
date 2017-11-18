@@ -7,7 +7,7 @@ import java.util.Observable;
 
 public class UntimedGame extends Observable
 {
-	private static UntimedGame UntimedInstance = new UntimedGame();
+	private static UntimedGame untimedInstance = new UntimedGame();
 	
 	private GameBoard gameBoard;
 	private Queue queue;
@@ -24,7 +24,7 @@ public class UntimedGame extends Observable
 	//access to the UntimedGame
 	public static UntimedGame getUntimedGame()
 	{
-		return UntimedInstance;
+		return untimedInstance;
 	}
 	//returns a copy of the board
 	public int[][] viewBoard()
