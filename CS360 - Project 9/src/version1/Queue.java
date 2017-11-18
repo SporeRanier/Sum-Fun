@@ -78,6 +78,19 @@ public class Queue extends Observable
 		}
 		return refreshLeft;
 	}
-	
-
+	//TODO: Test
+	//Generates a fresh queue
+	public void newBoard()
+	{
+		generateQueue();
+	}
+	//TODO: Test
+	//generates a fresh queue using the input 1d array (assumes the input array is in the correct format)
+	public void debugBoard(int values[])
+	{ 
+		for (int x = 0; x <=4; x++)
+		{
+			queue[x] = values[x];
+		}
+	}
 }
