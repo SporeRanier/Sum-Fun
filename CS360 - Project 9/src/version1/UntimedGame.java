@@ -94,9 +94,14 @@ public class UntimedGame extends Observable
 	{
 		return totalScore;
 	}
-	
+	//returns the score acquired from a single move, before it is added to total
 	public int getMoveScore()
 	{
 		return moveScore;
+	}
+	//returns the number of non-null (non 11) tiles on the board, to determine how close a player is to winning
+	public int getBoardStatus()
+	{
+		return gameBoard.boardStatus();
 	}
 }

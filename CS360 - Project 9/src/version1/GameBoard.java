@@ -143,6 +143,11 @@ public class GameBoard
 			}
 		}
 	}
+	
+	public int boardStatus()
+	{
+		return tilesPlaced;
+	}
 	//TODO: Test
 	//Generates a new board
 	public void newBoard()
