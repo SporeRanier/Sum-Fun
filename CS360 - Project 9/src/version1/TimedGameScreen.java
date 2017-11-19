@@ -337,6 +337,18 @@ public class TimedGameScreen extends JFrame implements Observer{
 			}
 		}
 	}
+	private void updateTime()
+	{
+		String time = String.format("%d:%02d", gameDriver.getMinutes(), gameDriver.getSeconds());
+		msLabel.setText(time);
+		if (gameDriver.getRawTime() == 0)
+		{
+			//TODO:
+			System.out.println("Game Over");
+		}
+	}
+	
+	
 	private void updateQueue(int newQueue[])
 	//Updates queue
 	{
@@ -438,7 +450,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 			scoreLabel.setText(String.format("%d", gameDriver.getScore()));
 			
 			
-			msLabel.setText(String.format("%d", gameDriver.getMoveScore()));
+			//msLabel.setText(String.format("%d", gameDriver.getMoveScore()));
 			movesLabel.setText(String.format("%d", gameDriver.getMoveScore()));
 			
 		}
@@ -451,6 +463,8 @@ public class TimedGameScreen extends JFrame implements Observer{
 		
 		updateBoard(gameDriver.viewBoard());
 		updateQueue(gameDriver.viewQueue());
+		updateTime();
+
 	}
 	
 }

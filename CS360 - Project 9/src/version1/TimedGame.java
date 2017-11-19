@@ -24,7 +24,7 @@ public class TimedGame extends Observable implements Observer
 	{
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();
-		clock = new Clock(180);
+		clock = new Clock(30);
 		clock.addObserver(this);
 		thread1 = new Thread(clock);
 		//TODO: Time = 2:00;
@@ -109,12 +109,17 @@ public class TimedGame extends Observable implements Observer
 	{
 		return gameBoard.boardStatus();
 	}
-	public int[] getTime()
+	public int getMinutes()
 	{
-		int[] timeLeft = new int [2];
-		timeLeft[0] = minutes;
-		timeLeft[1] = seconds;
-		return timeLeft;
+		return minutes;
+	}
+	public int getSeconds()
+	{
+		return seconds;
+	}
+	public int getRawTime()
+	{
+		return rawSeconds;
 	}
 	
 	@Override

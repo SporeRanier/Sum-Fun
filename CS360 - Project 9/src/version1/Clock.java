@@ -24,7 +24,7 @@ public class Clock extends Observable implements Runnable
 	@Override
 	public void run() 
 	{
-		for (int x = 180; x >= 0; x--)
+		for (int x = seconds; x >= 0; x--)
 		{
 			try {
 				Thread.sleep(1000);
