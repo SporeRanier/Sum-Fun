@@ -14,7 +14,7 @@ public class Clock
 		
 		seconds = 180;
 		minutesDis = seconds % 60;
-		secondsDis = seconds & 60 
+		secondsDis = seconds & 60;
 		
 	}
 	public void start()

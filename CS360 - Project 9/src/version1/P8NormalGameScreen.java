@@ -422,27 +422,12 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 			//Get the pressed button
 			JButton pressed = (JButton) e.getSource();
 			//change the text of the space with the top value from the queue
-			(pressed).setText(String.format("%d", gameDriver.viewTop()));
-			//TODO: move up? 
-			
+			//TODO: Remove(pressed).setText(String.format("%d", gameDriver.viewTop()));
+	
 			//send the new value to the GameBoard for processing, which returns a score			
 			moveScore = gameDriver.placeTile((int) pressed.getClientProperty("row"), (int) pressed.getClientProperty("column"));
 			//a value of 12 means the space is previously occupied
-/*			
-			if (moveScore != -1)
-			{
-				
-				scoreLabel.setText(String.format("%d", gameDriver.getScore()));
-				
-				
-				msLabel.setText(String.format("%d", gameDriver.getMoves()));
-				movesLabel.setText(String.format("%d", moveScore));
-				
-			}
-			
-			updateBoard(gameDriver.viewBoard());
-			updateQueue(gameDriver.viewQueue());
-			*/	
+	
 		}
 	}
 	@Override
