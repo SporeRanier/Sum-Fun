@@ -17,12 +17,17 @@ public class High_Scores {
 		names = new String[10];
 		scores = new int[10];
 	}
-/**
- * This method writes a new score and name value to the HighScores text file.
- * @param name The name value to be written to the file.
- * @param score the numerical score value to be written to the file.
- * @throws IOException
- */
+
+	/**
+	 * This method writes a new score and name value to the HighScores text
+	 * file.
+	 * 
+	 * @param name
+	 *            The name value to be written to the file.
+	 * @param score
+	 *            the numerical score value to be written to the file.
+	 * @throws IOException
+	 */
 	public void addScore(String name, int score) throws IOException {
 		FileWriter fwriter = new FileWriter("HighScores.txt", true);
 		PrintWriter outputFile = new PrintWriter(fwriter);
@@ -31,11 +36,15 @@ public class High_Scores {
 		fwriter.close();
 		outputFile.close();
 	}
-/**
- * This reads the scores and names from the file and finds the top 10 scores from the scores in the file and organizes them numerically in the
- * scores field and also organizes the corresponding name in the correct order as well.
- * @throws IOException
- */
+
+	/**
+	 * This reads the scores and names from the file and finds the top 10 scores
+	 * from the scores in the file and organizes them numerically in the scores
+	 * field and also organizes the corresponding name in the correct order as
+	 * well.
+	 * 
+	 * @throws IOException
+	 */
 	public void fillTopTen() throws IOException {
 		File file = new File("HighScores.txt");
 		Scanner inputFile = new Scanner(file);
@@ -72,9 +81,10 @@ public class High_Scores {
 		}
 		inputFile.close();
 	}
-/**
- * This shows the top 10 scores in a JOptionPane window.
- */
+
+	/**
+	 * This shows the top 10 scores in a JOptionPane window.
+	 */
 	public void showTopTen() {
 		JOptionPane.showMessageDialog(null,
 				"1st Place:\t" + names[0] + "\t" + scores[0] + "\n" + "2nd Place:\t" + names[1] + "\t" + scores[1]
@@ -84,24 +94,29 @@ public class High_Scores {
 						+ "8th Place:\t" + names[7] + "\t" + scores[7] + "\n" + "9th Place:\t" + names[8] + "\t"
 						+ scores[8] + "\n" + "10th Place:\t" + names[9] + "\t" + scores[9]);
 	}
-/**
- * 
- * @param namesTest An array of Strings containing the names of the people who have entered their scores into the game.
- * @param scoresTest An array of integers representing the scores entered by the corresponding person in namesTest.
- * This method starts by reading through the first 10 values of scores test and inserting the values into the score array.
- * Next these values are sorted in numerical order while also shifting the corresponding names accordingly.
- * Finally the remaining values in scoresTest are read and compared to each value currently in the scores field.
- * If the value is greater than any of the values in scores[] then the value is inserted at that index and the remaining scores are moved down
- * one position so that the scores are still in the correct order.
- */
+
+	/**
+	 * 
+	 * @param namesTest
+	 *            An array of Strings containing the names of the people who
+	 *            have entered their scores into the game.
+	 * @param scoresTest
+	 *            An array of integers representing the scores entered by the
+	 *            corresponding person in namesTest. This method starts by
+	 *            reading through the first 10 values of scores test and
+	 *            inserting the values into the score array. Next these values
+	 *            are sorted in numerical order while also shifting the
+	 *            corresponding names accordingly. Finally the remaining values
+	 *            in scoresTest are read and compared to each value currently in
+	 *            the scores field. If the value is greater than any of the
+	 *            values in scores[] then the value is inserted at that index
+	 *            and the remaining scores are moved down one position so that
+	 *            the scores are still in the correct order.
+	 */
 	public void testScores(String[] namesTest, int[] scoresTest) {
 		String tempName = "";
-		int tempScore = 0;
 		int temp = 0;
-		String temp2 = "";
 		int counter = 0;
-		int counter2 = 0;
-		boolean nextNull = false;
 		while (counter < 10) {
 			scores[counter] = scoresTest[counter];
 			names[counter] = namesTest[counter];
@@ -109,7 +124,7 @@ public class High_Scores {
 		}
 		for (int i = 0; i < scores.length; i++) {
 			for (int j = 1; j < scores.length - i; j++) {
-				if (scores[j - 1] > scores[j]) {
+				if (scores[j - 1] < scores[j]) {
 					temp = scores[j - 1];
 					scores[j - 1] = scores[j];
 					scores[j] = temp;
@@ -119,32 +134,38 @@ public class High_Scores {
 				}
 			}
 		}
-		counter = 10;
-		while (counter < scoresTest.length) {
-			tempScore = scoresTest[counter];
-			tempName = namesTest[counter];
-			for (int i = 0; i < scores.length; i++) {
-				if (tempScore > scores[i]) {
-					for (int j = i; j < scores.length - 1; j++) {
-						scores[j+1] = scores[j];
-						scores[j] = tempScore;
-						names[j+1] = names[j];
-						names[j] = tempName;
-						/*tempScore = scores[j];
-						temp = names[j];
-						scores[j] = tempScore;
-						names[j] = tempName;
-						scores[j + 1] = temp;
-						names[j + 1] = temp2;*/
-					}
+
+	}
+
+	public void add(String name, int score) {
+		int counter = 0;
+		boolean proceed = true;
+		int temp = 0;
+		String tempName = "";
+		int position = 0;
+		while (counter < scores.length && proceed) {
+			if (score > scores[counter]) {
+				proceed = false;
+				position = counter;
+				temp = scores[counter];
+				for (int i = scores.length - 1; i > position; i--) {
+					temp = scores[i];
+					scores[i] = scores[i - 1];
+					tempName = names[i];
+					names[i] = names[i-1];
 
 				}
+				scores[position] = score;
+				names[position] = name;
 			}
-
+			
 			counter++;
 		}
-	
-
-		
+	}
+	public int[] getScores(){
+		return scores;
+	}
+	public String[] getNames(){
+		return names;
 	}
 }
