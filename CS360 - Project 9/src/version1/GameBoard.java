@@ -160,7 +160,7 @@ public class GameBoard {
 	public void newBoard(){
 		generateBoard();
 	}
-	//TODO: Test
+
 	/** This method allows a specially constructed board to be input.
 	   * Method assumes the input array is of correct format (9x9, values 0-9).
 	   * @param values The 9x9 array of new values to be used as a board
