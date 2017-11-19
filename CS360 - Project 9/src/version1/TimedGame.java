@@ -133,5 +133,7 @@ public class TimedGame extends Observable implements Observer{
 		clock = new Clock(30);
 		thread1 = new Thread(clock);
 		thread1.start();
+		setChanged();
+		notifyObservers();
 	}
 }
