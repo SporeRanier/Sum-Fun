@@ -109,6 +109,14 @@ public class TimedGame extends Observable implements Observer
 	{
 		return gameBoard.boardStatus();
 	}
+	public int[] getTime()
+	{
+		int[] timeLeft = new int [2];
+		timeLeft[0] = minutes;
+		timeLeft[1] = seconds;
+		return timeLeft;
+	}
+	
 	@Override
 	//This method updates the class when the number of seconds remaining is decreased
 	public void update(Observable arg0, Object arg1) {
