@@ -93,7 +93,7 @@ public class GameBoard
 	public int placeTile(int x, int y, int value)
 	{
 		//if the space is already occupied (being not 11), return an error code (-1)
-		if (gameBoard[x][y] != 11){
+		if (gameBoard[x][y] == 11){
 			return -1;
 		}
 		//place the newly input value (parameter) into the gameboard
