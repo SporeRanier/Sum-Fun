@@ -24,27 +24,17 @@ public class TimedGame extends Observable implements Observer
 	{
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();
-		clock = new Clock(30);
+		clock = new Clock(180);
 		clock.addObserver(this);
 		thread1 = new Thread(clock);
-		//TODO: Time = 2:00;
 	}
 	//accessor for a TimedGame
 	public static TimedGame getTimedGame()
 	{
-		
+		//starts the thread for the timer
 		thread1.start();
-
 		return timedInstance;
 	}
-
-	
-	public static void clock()
-	{
-		
-
-	}
-	
 	//returns a copy of the board
 	public int[][] viewBoard()
 	{
@@ -132,5 +122,27 @@ public class TimedGame extends Observable implements Observer
 		//TODO:System.out.printf("%d - %d:%d\n", rawSeconds, minutes, seconds);
 		setChanged();
 		notifyObservers();
+	}
+	//works as a game to test the functionality of the timed game
+	public void debugGame()
+	{
+		int [][] newBoard = new int[9][9];
+		int[] newQueue = {7,2,3,4,5};
+		//fill the new board with 11s (empty spaces)
+		for (int x = 0; x<=8; x++)
+		{
+			for (int y = 0; y<=8; y++)
+			{
+				newBoard[x][y] = 11;
+			}
+		}
+		//set up an easily won situation
+		newBoard[2][3] = 6; newBoard[2][4] = 4; newBoard[3][3] = 4; newBoard[4][4] = 3;
+		gameBoard.debugBoard(newBoard);
+		queue.debugQueue(newQueue);
+		//reset the clock to a shorter time
+		clock = new Clock(30);
+		thread1 = new Thread(clock);
+		thread1.start();
 	}
 }

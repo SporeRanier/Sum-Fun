@@ -444,7 +444,6 @@ public class TimedGameScreen extends JFrame implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if (gameDriver.getMoveScore() != -1)
-			
 		{
 			
 			scoreLabel.setText(String.format("%d", gameDriver.getScore()));

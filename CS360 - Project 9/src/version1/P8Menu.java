@@ -77,7 +77,6 @@ public class P8Menu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			//TODO:System.out.print("working");
 			P8NormalGameScreen game1 = new P8NormalGameScreen();
 			setVisible(false);
 			AudioPlayer.player.stop(audioStream);
@@ -90,7 +89,6 @@ public class P8Menu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent f) {
 			// TODO Auto-generated method stub
-			//TODO:System.out.print("working");
 			TimedGameScreen game2 = new TimedGameScreen();
 			setVisible(false);
 			AudioPlayer.player.stop(audioStream);
@@ -101,7 +99,6 @@ public class P8Menu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent g) {
 			// TODO Auto-generated method stub
-			//TODO:System.out.print("working");
 			try {
 				GameOverScreen game3 = new GameOverScreen();
 			} catch (IOException e) {
