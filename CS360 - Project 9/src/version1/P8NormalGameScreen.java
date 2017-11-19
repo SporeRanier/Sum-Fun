@@ -29,6 +29,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	private JButton BGM2;
 	private JButton BGM3;
 	private JButton quitButton;
+	private JButton resetButton;
 	private File Music1;
 	private File Music2;
 	private File Music3;
@@ -180,7 +181,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	}
 	
 	private void createQueueGui()
-	//Creates the queue
+	//Creates the queue and elements
 	{
 		panelB.setLayout(null);
 		GridBagLayout gbl_panelB = new GridBagLayout();
@@ -212,11 +213,12 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		gbc_panel.gridy = 1;
 		panelB.add(panel, gbc_panel);
 		
-		JButton btnReset = new JButton("Reset Queue!");
-		panel.add(btnReset);
-		btnReset.setForeground(Color.YELLOW);
-		btnReset.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		btnReset.setBackground(new Color(178, 34, 34));
+		resetButton = new JButton("Reset Queue!");
+		panel.add(resetButton);
+		resetButton.setForeground(Color.YELLOW);
+		resetButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		resetButton.setBackground(new Color(178, 34, 34));
+		resetButton.addActionListener(new ButtonListener());
 		
 		JPanel panel2 = new JPanel();
 		panel2.setBounds(0, 137, 202, 137);
@@ -405,6 +407,9 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 					else{
 						System.out.println("I got here2");
 					}
+					if(RCA.getSource() == resetButton){
+						gameDriver.refreshQueue();						
+					}
 					
 				}
 				
@@ -453,14 +458,15 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 			movesLabel.setText(String.format("%d", gameDriver.getMoveScore()));
 			
 		}
+		if(gameDriver.refreshLeft()){
+			resetButton.setEnabled(true);
+		}
+		else{
+			resetButton.setEnabled(false);
+		}
 		
 		updateBoard(gameDriver.viewBoard());
 		updateQueue(gameDriver.viewQueue());
 	}
-	private class GameChangeListener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			JButton clicked = (JButton) event.getSource();
-			  
-		}
-	}
+	
 }
