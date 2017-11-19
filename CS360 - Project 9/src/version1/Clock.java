@@ -2,17 +2,17 @@ package version1;
 
 import java.util.*;
 
-public class Clock 
+public class Clock extends Observable implements Runnable
 {
 	Timer timer;
 	int seconds;
 	int minutesDis;
 	int secondsDis;
 	
-	public Clock()
+	public Clock(int inpSeconds)
 	{
 		
-		seconds = 180;
+		seconds = inpSeconds;
 		minutesDis = seconds % 60;
 		secondsDis = seconds & 60;
 		
@@ -20,6 +20,29 @@ public class Clock
 	public void start()
 	{
 		
+	}
+	@Override
+	public void run() 
+	{
+		for (int x = 180; x >= 0; x--)
+		{
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			seconds = x;
+			setChanged();
+			notifyObservers();
+		}
+		
+		
+	}
+	//Returns the number of seconds remaining
+	public int getSeconds()
+	{
+		return seconds;
 	}
 	
 	

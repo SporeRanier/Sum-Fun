@@ -5,30 +5,35 @@ package version1;
  */
 import java.util.*;
 
-public class TimedGame extends Observable
+public class TimedGame extends Observable implements Observer
 {
 	private static TimedGame timedInstance = new TimedGame();
 	
 	private GameBoard gameBoard;
 	private Queue queue;
-	private Timer timer;
+	private int rawSeconds;
 	private int minutes;
 	private int seconds;
 	private int totalScore = 0;
 	private int moveScore = 0;
+	private static Clock clock;
+	static Thread thread1;
+	
 	//constructor for a singleton TimedGame
 	private TimedGame()
 	{
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();
+		clock = new Clock(180);
+		clock.addObserver(this);
+		thread1 = new Thread(clock);
 		//TODO: Time = 2:00;
 	}
 	//accessor for a TimedGame
 	public static TimedGame getTimedGame()
 	{
 		
-		clock();
-		
+		thread1.start();
 
 		return timedInstance;
 	}
@@ -37,19 +42,7 @@ public class TimedGame extends Observable
 	public static void clock()
 	{
 		
-		for (int x = 180; x >= 0; x--)
-		{
-			System.out.println("The Clock is about to start");
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.printf("%d", x);
 
-		}
-		System.out.println("The Clock just started");
 	}
 	
 	//returns a copy of the board
@@ -115,5 +108,16 @@ public class TimedGame extends Observable
 	public int getBoardStatus()
 	{
 		return gameBoard.boardStatus();
+	}
+	@Override
+	//This method updates the class when the number of seconds remaining is decreased
+	public void update(Observable arg0, Object arg1) {
+		rawSeconds = clock.getSeconds();
+		//calculates minutes/seconds from the raw seconds
+		minutes = rawSeconds / 60;
+		seconds = rawSeconds % 60;
+		//TODO:System.out.printf("%d - %d:%d\n", rawSeconds, minutes, seconds);
+		setChanged();
+		notifyObservers();
 	}
 }
