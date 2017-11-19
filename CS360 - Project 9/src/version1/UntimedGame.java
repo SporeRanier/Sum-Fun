@@ -49,6 +49,7 @@ public class UntimedGame extends Observable
 		moves--;
 		totalScore += moveScore;
 		//notify observers
+		System.out.printf("Score: %d  MoveScore: %d\n", totalScore, moveScore);
 		setChanged();
 		notifyObservers();
 		return moveScore;
@@ -58,10 +59,18 @@ public class UntimedGame extends Observable
 	{
 		return queue.viewQueue();
 	}
+	//Allows the caller to view what the top of the queue is without using it
+	public int viewTop()
+	{
+		return queue.viewTop();
+	}
 	//refreshes the queue, true means the refresh happened
 	public boolean refreshQueue()
 	{
-		return queue.refreshQueue();
+		boolean refreshed = queue.refreshQueue();
+		setChanged();
+		notifyObservers();
+		return refreshed;
 	}
 	//checks to see if there is a refresh remaining, value true means there is
 	public boolean refreshLeft()
@@ -87,5 +96,15 @@ public class UntimedGame extends Observable
 	public int getScore()
 	{
 		return totalScore;
+	}
+	//returns the score acquired from a single move, before it is added to total
+	public int getMoveScore()
+	{
+		return moveScore;
+	}
+	//returns the number of non-null (non 11) tiles on the board, to determine how close a player is to winning
+	public int getBoardStatus()
+	{
+		return gameBoard.boardStatus();
 	}
 }

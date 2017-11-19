@@ -16,16 +16,20 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.GroupLayout.Alignment;
 
 
-public class P8NormalGameScreen extends JFrame{
+public class P8NormalGameScreen extends JFrame implements Observer{
 	private JButton tiles[][];
 	private JButton offButton;
 	private JButton BGM1;
 	private JButton BGM2;
 	private JButton BGM3;
 	private JButton quitButton;
+	private JButton resetButton;
 	private File Music1;
 	private File Music2;
 	private File Music3;
@@ -38,11 +42,7 @@ public class P8NormalGameScreen extends JFrame{
 	private AudioClip sound1;
 	private AudioClip sound2;
 	private AudioClip sound3;
-	GameBoard gameBoard;
-	Queue queue;
-	int score;
-	int moves;
-	int testQueue[] = new int[5];
+	UntimedGame gameDriver;
 	JPanel panelC;
 	JPanel panelN;
 	JPanel panelS;
@@ -59,10 +59,10 @@ public class P8NormalGameScreen extends JFrame{
 	public P8NormalGameScreen() {
 		setTitle("Sum Fun 0.97");
 		moveScore = 0;
-		gameBoard = GameBoard.getBoard();
-		queue = Queue.getQueue();
+		gameDriver = UntimedGame.getUntimedGame();
+		gameDriver.addObserver(this);
 		tiles = new JButton[9][9];
-		moves = 50;
+		
 		setSize(1024, 768);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -181,7 +181,7 @@ public class P8NormalGameScreen extends JFrame{
 	}
 	
 	private void createQueueGui()
-	//Creates the queue
+	//Creates the queue and elements
 	{
 		panelB.setLayout(null);
 		GridBagLayout gbl_panelB = new GridBagLayout();
@@ -213,11 +213,12 @@ public class P8NormalGameScreen extends JFrame{
 		gbc_panel.gridy = 1;
 		panelB.add(panel, gbc_panel);
 		
-		JButton btnReset = new JButton("Reset Queue!");
-		panel.add(btnReset);
-		btnReset.setForeground(Color.YELLOW);
-		btnReset.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		btnReset.setBackground(new Color(178, 34, 34));
+		resetButton = new JButton("Reset Queue!");
+		panel.add(resetButton);
+		resetButton.setForeground(Color.YELLOW);
+		resetButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		resetButton.setBackground(new Color(178, 34, 34));
+		resetButton.addActionListener(new ButtonListener());
 		
 		JPanel panel2 = new JPanel();
 		panel2.setBounds(0, 137, 202, 137);
@@ -290,7 +291,7 @@ public class P8NormalGameScreen extends JFrame{
 		panelSU.add(stalin);
 		
 		queueT = new JLabel[5];
-		int queueI[] = queue.viewQueue();
+		int queueI[] = gameDriver.viewQueue();
 		for (int x = 0; x <= 4; x++){
 			queueT[x] = new JLabel(String.format("%d            ", queueI[x]));
 			queueT[x].setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
@@ -310,7 +311,7 @@ public class P8NormalGameScreen extends JFrame{
 		
 		int intBoard[][] = new int[9][9];
 				
-				intBoard = gameBoard.viewBoard();
+				intBoard = gameDriver.viewBoard();
 		for (int x = 0; x <= 8; x++){
 			for (int y = 0; y <= 8; y++){
 				if (intBoard[x][y] != 11){
@@ -406,6 +407,9 @@ public class P8NormalGameScreen extends JFrame{
 					else{
 						System.out.println("I got here2");
 					}
+					if(RCA.getSource() == resetButton){
+						gameDriver.refreshQueue();						
+					}
 					
 				}
 				
@@ -418,27 +422,33 @@ public class P8NormalGameScreen extends JFrame{
 			//Get the pressed button
 			JButton pressed = (JButton) e.getSource();
 			//change the text of the space with the top value from the queue
-			(pressed).setText(String.format("%d", queue.viewTop()));
-			//TODO: move up? 
-			
+	
 			//send the new value to the GameBoard for processing, which returns a score			
-			moveScore = gameBoard.placeTile((int) pressed.getClientProperty("row"), (int) pressed.getClientProperty("column"), (int) queue.viewTop());
-			//a value of 12 means the space is previously occupied
-			if (moveScore != -1)
-			{
-				score += moveScore;
-				scoreLabel.setText(String.format("%d", score));
-				queue.useQueue();
-				moves --;
-				msLabel.setText(String.format("%d", moves));
-				movesLabel.setText(String.format("%d", moveScore));
-				
-			}
-			
-			updateBoard(gameBoard.viewBoard());
-			
-			testQueue = queue.viewQueue();
-			updateQueue(testQueue);	
+			moveScore = gameDriver.placeTile((int) pressed.getClientProperty("row"), (int) pressed.getClientProperty("column"));
 		}
 	}
+	@Override
+	public void update(Observable o, Object arg) {
+		if (gameDriver.getMoveScore() != -1)
+			
+		{
+			
+			scoreLabel.setText(String.format("%d", gameDriver.getScore()));
+			
+			
+			msLabel.setText(String.format("%d", gameDriver.getMoves()));
+			movesLabel.setText(String.format("%d", gameDriver.getMoveScore()));
+			
+		}
+		if(gameDriver.refreshLeft()){
+			resetButton.setEnabled(true);
+		}
+		else{
+			resetButton.setEnabled(false);
+		}
+		
+		updateBoard(gameDriver.viewBoard());
+		updateQueue(gameDriver.viewQueue());
+	}
+	
 }

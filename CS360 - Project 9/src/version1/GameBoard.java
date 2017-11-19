@@ -3,7 +3,7 @@ package version1;
 //Creates a 9x9 board and interacts with that board
 import java.util.*;
 
-public class GameBoard extends Observable
+public class GameBoard
 {
 	private static GameBoard boardInstance = new GameBoard();
 	//stores the actual board
@@ -14,6 +14,10 @@ public class GameBoard extends Observable
 	//constructor that creates a board of 9*9 containing random numbers from 0 to 9
 	private GameBoard()
 	{	
+		generateBoard();
+	}
+	//generates a new board (9x9 where the center 7x7 are values 0-9 and the outer is 11 (empty))
+	private void generateBoard(){
 		Random random = new Random();
 		//instantiates gameBoard of 9x9
 		gameBoard = new int[9][9];
@@ -115,16 +119,15 @@ public class GameBoard extends Observable
 			clearAround(x, y);
 			tilesPlaced -= tileCount + 1;
 			if (tileCount >= 3){
-				setChanged();
-				notifyObservers();
 				return total * tileCount;
 			}
-			setChanged();
-			notifyObservers();
 			return total;
 		}
-		setChanged();
-		notifyObservers();
+		//This line removes 0 placed on the board if they don't remove other 0s
+		else if (value == 0)
+		{
+			gameBoard[x][y] = 11;
+		}
 		//Result of 0 means no tiles removed
 		return 0;
 	}
@@ -140,4 +143,33 @@ public class GameBoard extends Observable
 			}
 		}
 	}
+	
+	public int boardStatus()
+	{
+		return tilesPlaced;
+	}
+	//TODO: Test
+	//Generates a new board
+	public void newBoard()
+	{
+		generateBoard();
+	}
+	//TODO: Test
+	//generates a fresh board using the input 2d array (assumes the input array is in the correct format)
+	public void debugBoard(int values[][])
+	{
+		tilesPlaced = 0;
+		for (int x = 0; x <=8; x++)
+		{
+			for (int y = 0; y <= 8; y++)
+			{
+				gameBoard[x][y] = values[x][y];
+				if (values[x][y] != 11)
+				{
+					tilesPlaced ++;
+				}
+			}
+		}
+	}
+	
 }
