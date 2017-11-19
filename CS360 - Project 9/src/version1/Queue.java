@@ -2,45 +2,45 @@ package version1;
 //Author David Bell
 //Class representing a queue of 5 integers (0-9)
 //Also includes logic for a single refresh of the queue
-import java.util.*;
+import java.util.Random;
 
-public class Queue
-{
+public class Queue {
 	private static Queue queueInstance = new Queue();
 	
 	private Random random = new Random();
-	private int queue[];
+	private int[] queue;
 
 	private boolean refreshLeft = true;
 	//constructor for queue, with a length of 5 numbers randomly taken from 0 - 9
-	private Queue()
-	{
+	private Queue(){
 		generateQueue();
 	}
 
 	//as Queue is a singleton (I hope anyway), this method is the manner in which it is accessed
-	public static Queue getQueue()
-	{
+	public static Queue getQueue(){
 		return queueInstance;
 	}
 	//method which generates a queue of 5 random integers(0-9)
-	private void generateQueue()
-	{
+	private void generateQueue(){
 		queue = new int[5];
 		for (int x = 0; x < queue.length; x++){
 			queue[x] = random.nextInt(9);
 		}
 	}
 	//returns a copy of the queue
-	public int[] viewQueue()
-	{
-		int newQueue[] = new int[5];
+	/** Method returning a copy of the queue for display in a GUI.
+	   * @return int[] - The copy of the queue that is returned.
+	   */
+	public int[] viewQueue(){
+		int[] newQueue = new int[5];
 		newQueue = queue.clone();
 		return newQueue;
 	}
 	//removes the top value from the queue, replaces the value on the bottom, then returns the value of the old top of the queue
-	public int useQueue()
-	{	
+	/** Method which removes the top of the queue, moves all values up, then generates a new value at the bottom.
+	   * @return int returns the old top of the queue.
+	   */
+	public int useQueue(){	
 		//save the top of the queue
 		int top = queue[0];
 		//move the queue up 1 space
@@ -52,18 +52,19 @@ public class Queue
 		return top;
 	}
 	//returns the first value in the queue.
-	public int viewTop()
-	{
+	public int viewTop(){
 		return queue[0];
 	}
 	//returns if there is a refresh left (true), or if it has already been used (false)
-	public boolean refreshLeft()
-	{
+	public boolean refreshLeft(){
 		return refreshLeft;
 	}
 	//if a refresh is remaining, the queue is newly generated, and true is returned. Otherwise, false is returned
-	public boolean refreshQueue()
-	{
+	/** Attempts to refresh the queue (generate 5 new values). 
+	 *  Will refresh if refreshLeft is True. If it does, this value is set to false.
+	   * @return boolean Returns true if the queue was refreshed, false if not.
+	   */
+	public boolean refreshQueue(){
 		if (refreshLeft == true){
 			generateQueue();
 			refreshLeft = false;
@@ -72,16 +73,17 @@ public class Queue
 		}
 		return refreshLeft;
 	}
+	
 	//Generates a fresh queue
-	public void newBoard()
-	{
+	public void newBoard(){
 		generateQueue();
 	}
-	//generates a fresh queue using the input 1d array (assumes the input array is in the correct format)
-	public void debugQueue(int values[])
-	{ 
-		for (int x = 0; x <=4; x++)
-		{
+
+	/** This method allows a predetermined queue to be made.
+	   * @param values - takes in an array of 5 values for queue. Assumes the format is correct (values 0-9)
+	   */
+	public void debugQueue(int[] values){ 
+		for (int x = 0; x <=4; x++){
 			queue[x] = values[x];
 		}
 	}

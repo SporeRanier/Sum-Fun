@@ -82,16 +82,6 @@ public class UntimedGame extends Observable
 	{
 		return moves;
 	}
-	//removes a move and returns the turns remaining
-	//TODO: Remove?
-	public int useMove()
-	{
-		moves--;
-		//notify observers
-		setChanged();
-		notifyObservers();
-		return moves;
-	}
 	//returns the value of totalScore
 	public int getScore()
 	{

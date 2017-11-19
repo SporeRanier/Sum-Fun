@@ -1,20 +1,25 @@
 package version1;
-//Author David Bell
-//Creates a 9x9 board and interacts with that board
-import java.util.*;
 
-public class GameBoard
-{
+import java.util.Random;
+
+/**
+* This class acts as a 9x9 gameboard.
+* Each "tile" stores an int 0-9 randomly generated. 
+* Contains methods to generate the board, and interact with it
+* @author  David Bell
+* @version 1.0
+* @since   2017-1-18 
+*/
+public class GameBoard {
 	private static GameBoard boardInstance = new GameBoard();
 	//stores the actual board
-	private int gameBoard[][];
-	
+	private int[][] gameBoard;
+
 	private int tilesPlaced;
 	
 	//constructor that creates a board of 9*9 containing random numbers from 0 to 9
-	private GameBoard()
-	{	
-		generateBoard();
+	private GameBoard(){	
+    	generateBoard();
 	}
 	//generates a new board (9x9 where the center 7x7 are values 0-9 and the outer is 11 (empty))
 	private void generateBoard(){
@@ -28,9 +33,8 @@ public class GameBoard
 				if (x == 0 || x == 8 || y == 0 || y == 8){
 					//11 will be the stand-in for empty
 					gameBoard[x][y] = 11;
-				}
 				//place a random number from 0 to 9 in the spot
-				else{
+				} else{
 					gameBoard[x][y] = random.nextInt(10);
 				}
 			}
@@ -38,19 +42,20 @@ public class GameBoard
 		tilesPlaced = 7*7;
 	}
 	//as GameBoard is a singleton (I hope anyway), this method is how it is accessed
-	public static GameBoard getBoard()
-	{
+	public static GameBoard getBoard(){
 		return boardInstance;
 	}
 	//shows the caller the number of tiles currently on the board
-	public int numTilesPlaced()
-	{
+	public int numTilesPlaced(){
 		return tilesPlaced;
 	}
 	
 	//returns a copy of the gameBoard to show the player
-	public int [][] viewBoard()
-	{
+	/** Returns a copy of the values on the gameBoard, so they may be displayed.
+	   * @return int[][] Returns the actual values of the board
+	   */
+
+	public int [][] viewBoard() {
 		int [][] copyBoard = new int[9][];
 		//create a copy of the gameBoard to show the player
 		for(int i = 0; i < 9; i++){
@@ -59,9 +64,8 @@ public class GameBoard
 		return copyBoard;
 	}
 	//method returning int[4] which holds the minimums and maximums for x,y (so that -1 and 9 are not called in a 8x8 array
-	private int[] getMinMax(int x, int y)
-	{
-		int minMax[] = new int[4];
+	private int[] getMinMax(int x, int y){
+		int[] minMax = new int[4];
 		//indicates the bounds of checked area (being 1 away from the center (x,y))
 		//minMax[0] is xMin, [1] is yMin, [2] is xMax, [3] is yMax
 		minMax[0] = x-1;
@@ -90,8 +94,14 @@ public class GameBoard
 		return minMax;
 	}
 	//Method taking care of the placement of a tile, returning 0 if no tiles are removed, and the score if tiles are removed
-	public int placeTile(int x, int y, int value)
-	{
+	/**  Method takes care of the placing of a tile, returning the score if successful, -1 if not.
+	   * @param x  The X coordinate of the placed tile.
+	   * @param y  The Y coordinate of the placed tile.
+	   * @param value This is the value of the tile placed.
+	   * @return int Returns the score resulting from the placement of the tile. Score is -1 if the tile is occupied.
+	   */
+
+	public int placeTile(int x, int y, int value){
 		//if the space is already occupied (being not 11), return an error code (-1)
 		if (gameBoard[x][y] != 11){
 			return -1;
@@ -103,7 +113,7 @@ public class GameBoard
 		int total= 0;
 		int tileCount = 0;
 		//get an array of bounds
-		int minMax[] = getMinMax(x,y);
+		int[] minMax = getMinMax(x,y);
 		//iterate through from min to max of x & y to determine total
 		for (int j = minMax[0]; j <= minMax[2]; j++){
 			for (int k = minMax[1]; k <= minMax[3]; k++){
@@ -122,20 +132,18 @@ public class GameBoard
 				return total * tileCount;
 			}
 			return total;
-		}
+		
 		//This line removes 0 placed on the board if they don't remove other 0s
-		else if (value == 0)
-		{
+		} else if (value == 0){
 			gameBoard[x][y] = 11;
 		}
 		//Result of 0 means no tiles removed
 		return 0;
 	}
 	//clears the tiles around x,y (meaning they are replaced by the value 11)
-	private void clearAround(int x, int y)
-	{
+	private void clearAround(int x, int y){
 		//get the array of bounds
-		int minMax[] = getMinMax(x,y);
+		int[] minMax = getMinMax(x,y);
 		//iterate through from min to max of x & y (bounds) to replace with empty spaces (11)
 		for (int j = minMax[0]; j <= minMax[2]; j++){
 			for (int k = minMax[1]; k <= minMax[3]; k++){
@@ -144,28 +152,25 @@ public class GameBoard
 		}
 	}
 	
-	public int boardStatus()
-	{
+	public int boardStatus(){
 		return tilesPlaced;
 	}
-	//TODO: Test
+
 	//Generates a new board
-	public void newBoard()
-	{
+	public void newBoard(){
 		generateBoard();
 	}
 	//TODO: Test
-	//generates a fresh board using the input 2d array (assumes the input array is in the correct format)
-	public void debugBoard(int values[][])
-	{
+	/** This method allows a specially constructed board to be input.
+	   * Method assumes the input array is of correct format (9x9, values 0-9).
+	   * @param values The 9x9 array of new values to be used as a board
+	   */
+	public void debugBoard(int[][] values){
 		tilesPlaced = 0;
-		for (int x = 0; x <=8; x++)
-		{
-			for (int y = 0; y <= 8; y++)
-			{
+		for (int x = 0; x <=8; x++){
+			for (int y = 0; y <= 8; y++){
 				gameBoard[x][y] = values[x][y];
-				if (values[x][y] != 11)
-				{
+				if (values[x][y] != 11){
 					tilesPlaced ++;
 				}
 			}
