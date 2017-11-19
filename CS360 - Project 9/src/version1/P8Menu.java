@@ -98,13 +98,7 @@ public class P8Menu extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent g) {
-			// TODO Auto-generated method stub
-			try {
-				GameOverScreen game3 = new GameOverScreen();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			TimedGameScreen game3 = new TimedGameScreen();
 			setVisible(false);
 			AudioPlayer.player.stop(audioStream);
 		}
