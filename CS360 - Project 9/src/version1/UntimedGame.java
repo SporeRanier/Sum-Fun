@@ -67,6 +67,8 @@ public class UntimedGame extends Observable
 	//refreshes the queue, true means the refresh happened
 	public boolean refreshQueue()
 	{
+		setChanged();
+		notifyObservers();
 		return queue.refreshQueue();
 	}
 	//checks to see if there is a refresh remaining, value true means there is
