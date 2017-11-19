@@ -111,6 +111,11 @@ public class TimedGame extends Observable implements Observer{
 		setChanged();
 		notifyObservers();
 	}
+	//Future
+	public int getTiles()
+	{
+		return gameBoard.boardStatus();
+	}
 	//works as a game to test the functionality of the timed game
 
 	public void debugGame(){
