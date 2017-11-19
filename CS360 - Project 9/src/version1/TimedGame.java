@@ -11,7 +11,7 @@ public class TimedGame extends Observable
 	
 	private GameBoard gameBoard;
 	private Queue queue;
-	//TODO: private __ time; //3:00 = 180 seconds
+	private Timer time;
 	private int totalScore = 0;
 	private int moveScore = 0;
 	//constructor for a singleton TimedGame
@@ -19,6 +19,7 @@ public class TimedGame extends Observable
 	{
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();
+		time = new Timer();
 		//TODO: Time = 2:00;
 	}
 	//accessor for a TimedGame
@@ -65,7 +66,10 @@ public class TimedGame extends Observable
 	//refreshes the queue, true means the refresh happened
 	public boolean refreshQueue()
 	{
-		return queue.refreshQueue();
+		boolean refreshed = queue.refreshQueue();
+		setChanged();
+		notifyObservers();
+		return refreshed;
 	}
 	//checks to see if there is a refresh remaining, value true means there is
 	public boolean refreshLeft()
