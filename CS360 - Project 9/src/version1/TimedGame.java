@@ -11,7 +11,9 @@ public class TimedGame extends Observable
 	
 	private GameBoard gameBoard;
 	private Queue queue;
-	private Timer time;
+	private Timer timer;
+	private int minutes = 3;
+	private int seconds;
 	private int totalScore = 0;
 	private int moveScore = 0;
 	//constructor for a singleton TimedGame
@@ -19,7 +21,6 @@ public class TimedGame extends Observable
 	{
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();
-		time = new Timer();
 		//TODO: Time = 2:00;
 	}
 	//accessor for a TimedGame
@@ -27,6 +28,12 @@ public class TimedGame extends Observable
 	{
 		return timedInstance;
 	}
+	
+	//public int clock()
+	//{
+	//	
+	//}
+	
 	//returns a copy of the board
 	public int[][] viewBoard()
 	{
