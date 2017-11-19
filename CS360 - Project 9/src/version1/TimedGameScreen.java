@@ -42,7 +42,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 	private AudioClip sound1;
 	private AudioClip sound2;
 	private AudioClip sound3;
-	UntimedGame gameDriver;
+	TimedGame gameDriver;
 	JPanel panelC;
 	JPanel panelN;
 	JPanel panelS;
@@ -59,7 +59,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 	public TimedGameScreen() {
 		setTitle("Sum Fun 0.97");
 		moveScore = 0;
-		gameDriver = UntimedGame.getUntimedGame();
+		gameDriver = TimedGame.getTimedGame();
 		gameDriver.addObserver(this);
 		tiles = new JButton[9][9];
 		
@@ -438,7 +438,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 			scoreLabel.setText(String.format("%d", gameDriver.getScore()));
 			
 			
-			msLabel.setText(String.format("%d", gameDriver.getMoves()));
+			msLabel.setText(String.format("%d", gameDriver.getMoveScore()));
 			movesLabel.setText(String.format("%d", gameDriver.getMoveScore()));
 			
 		}

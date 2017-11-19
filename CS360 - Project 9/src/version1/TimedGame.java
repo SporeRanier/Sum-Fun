@@ -12,7 +12,7 @@ public class TimedGame extends Observable
 	private GameBoard gameBoard;
 	private Queue queue;
 	private Timer timer;
-	private int minutes = 3;
+	private int minutes;
 	private int seconds;
 	private int totalScore = 0;
 	private int moveScore = 0;
@@ -26,13 +26,31 @@ public class TimedGame extends Observable
 	//accessor for a TimedGame
 	public static TimedGame getTimedGame()
 	{
+		
+		clock();
+		
+
 		return timedInstance;
 	}
+
 	
-	//public int clock()
-	//{
-	//	
-	//}
+	public static void clock()
+	{
+		
+		for (int x = 180; x >= 0; x--)
+		{
+			System.out.println("The Clock is about to start");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.printf("%d", x);
+
+		}
+		System.out.println("The Clock just started");
+	}
 	
 	//returns a copy of the board
 	public int[][] viewBoard()
