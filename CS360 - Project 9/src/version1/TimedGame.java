@@ -3,8 +3,10 @@ package version1;
 /*holds all information for a single, untimed game 
  *(including Gameboard, Queue, Moves, and Score) 
  */
-import java.util.Observer;
+
 import java.util.Observable;
+import java.util.Observer;
+
 
 public class TimedGame extends Observable implements Observer{
 	private static TimedGame timedInstance = new TimedGame();
@@ -110,6 +112,7 @@ public class TimedGame extends Observable implements Observer{
 		notifyObservers();
 	}
 	//works as a game to test the functionality of the timed game
+
 	public void debugGame(){
 		int [][] newBoard = new int[9][9];
 		int[] newQueue = {7,2,3,4,5};
