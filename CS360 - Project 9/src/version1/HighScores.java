@@ -9,11 +9,11 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
-public class High_Scores {
+public class HighScores {
 	private String[] names;
 	private int[] scores;
 
-	public High_Scores() {
+	public HighScores() {
 		names = new String[10];
 		scores = new int[10];
 	}
@@ -136,13 +136,21 @@ public class High_Scores {
 		}
 
 	}
-/**
- * The add method tests to see if a new numerical value passed into the method will be able to place in the top 10 scores.
- * If it does make the list it is inserted in t's proper position and shifts all lesser values down on the high scores list.
- * @param name A String value that corresponds to the numerical value passed into the method it shall be added with the numerical value
- * if the numerical score beats one of the top scores.
- * @param score A new score that will be added to the high score list if it is one of the values that makes it into the top ten.
- */
+
+	/**
+	 * The add method tests to see if a new numerical value passed into the
+	 * method will be able to place in the top 10 scores. If it does make the
+	 * list it is inserted in t's proper position and shifts all lesser values
+	 * down on the high scores list.
+	 * 
+	 * @param name
+	 *            A String value that corresponds to the numerical value passed
+	 *            into the method it shall be added with the numerical value if
+	 *            the numerical score beats one of the top scores.
+	 * @param score
+	 *            A new score that will be added to the high score list if it is
+	 *            one of the values that makes it into the top ten.
+	 */
 	public void add(String name, int score) {
 		int counter = 0;
 		boolean proceed = true;
@@ -158,63 +166,74 @@ public class High_Scores {
 					temp = scores[i];
 					scores[i] = scores[i - 1];
 					tempName = names[i];
-					names[i] = names[i-1];
+					names[i] = names[i - 1];
 
 				}
 				scores[position] = score;
 				names[position] = name;
 			}
-			
+
 			counter++;
 		}
 	}
+
 	/**
-	 * Getter method for receiving the Scores array from an instance of this class.
+	 * Getter method for receiving the Scores array from an instance of this
+	 * class.
+	 * 
 	 * @return scores[] the data field that will hold the top 10 high scores.
 	 */
-	public int[] getScores(){
+	public int[] getScores() {
 		return scores;
 	}
+
 	/**
-	 * Getter method for receiving the array of names that correspond with the top scores.
+	 * Getter method for receiving the array of names that correspond with the
+	 * top scores.
+	 * 
 	 * @return The names[] field.
 	 */
-	public String[] getNames(){
+	public String[] getNames() {
 		return names;
 	}
-	
+
 	/**
-	 * This method reads the text file "HighScores.txt" and fills the names and scores arrays with the appropriate date to show the top scores
-	 * and the names of the people that got these scores.
+	 * This method reads the text file "HighScores.txt" and fills the names and
+	 * scores arrays with the appropriate date to show the top scores and the
+	 * names of the people that got these scores.
+	 * 
 	 * @throws IOException
 	 */
-	public void fill() throws IOException{
+	public void fill() throws IOException {
 		String filename = "HighScores.txt";
 		File file = new File(filename);
 		Scanner inputFile = new Scanner(file);
 		String data = "";
 		int i = 0;
-		while(inputFile.hasNextLine()){
+		while (inputFile.hasNextLine()) {
 			data = inputFile.nextLine();
 			StringTokenizer tokenizer = new StringTokenizer(data, " ");
 			names[i] = tokenizer.nextToken();
 			scores[i] = Integer.parseInt(tokenizer.nextToken());
 			i++;
 		}
-		for(i = 0; i < scores.length; i++){
+		for (i = 0; i < scores.length; i++) {
 			System.out.println(names[i] + " " + scores[i]);
 		}
 		inputFile.close();
 	}
+
 	/**
-	 * This method works as an update method for writing an the top scores in case a new score is added which will
-	 * ultimately push another value out of the array. 
+	 * This method works as an update method for writing an the top scores in
+	 * case a new score is added which will ultimately push another value out of
+	 * the array.
+	 * 
 	 * @throws IOException
 	 */
-	public void writeToFile() throws IOException{
-		FileWriter fwriter = new FileWriter("HighScores.txt", false );
+	public void writeToFile() throws IOException {
+		FileWriter fwriter = new FileWriter("HighScores.txt", false);
 		PrintWriter outputFile = new PrintWriter(fwriter);
-		for(int i = 0; i <  scores.length; i++){
+		for (int i = 0; i < scores.length; i++) {
 			outputFile.println(names[i] + " " + scores[i]);
 		}
 		outputFile.close();
