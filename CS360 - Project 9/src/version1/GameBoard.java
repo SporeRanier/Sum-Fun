@@ -93,14 +93,13 @@ public class GameBoard {
 		//return 
 		return minMax;
 	}
-	//Method taking care of the placement of a tile, returning 0 if no tiles are removed, and the score if tiles are removed
+	
 	/**  Method takes care of the placing of a tile, returning the score if successful, -1 if not.
 	   * @param x  The X coordinate of the placed tile.
 	   * @param y  The Y coordinate of the placed tile.
 	   * @param value This is the value of the tile placed.
 	   * @return int Returns the score resulting from the placement of the tile. Score is -1 if the tile is occupied.
 	   */
-
 	public int placeTile(int x, int y, int value){
 		//if the space is already occupied (being not 11), return an error code (-1)
 		if (gameBoard[x][y] != 11){
@@ -140,6 +139,7 @@ public class GameBoard {
 		//Result of 0 means no tiles removed
 		return 0;
 	}
+	
 	//clears the tiles around x,y (meaning they are replaced by the value 11)
 	private void clearAround(int x, int y){
 		//get the array of bounds
@@ -176,5 +176,4 @@ public class GameBoard {
 			}
 		}
 	}
-	
 }

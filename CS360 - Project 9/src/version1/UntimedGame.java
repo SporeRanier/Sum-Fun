@@ -1,12 +1,17 @@
 package version1;
-//Author David Bell\
-/*holds all information for a single, timed game 
- *(including Gameboard, Queue, Moves, and Score) 
- */
+
 import java.util.Observable;
 
-public class UntimedGame extends Observable
-{
+/**
+* Class acts as the game logic for an untimed game in Sum Fun.
+* Contains a board, a queue, a variable for moves, and for Score.
+* Updates all variables as it is told by a GUI.
+* @author  David Bell
+* @version 1.0
+* @since   2017-13-18 
+*/
+
+public class UntimedGame extends Observable{
 	private static UntimedGame untimedInstance = new UntimedGame();
 	
 	private GameBoard gameBoard;
@@ -15,33 +20,32 @@ public class UntimedGame extends Observable
 	private int totalScore = 0;
 	private int moveScore = 0;
 	//Constructor for a singleton UntimedGame
-	private UntimedGame()
-	{
+	private UntimedGame(){
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();
 		moves = 50;
 	}
 	//access to the UntimedGame
-	public static UntimedGame getUntimedGame()
-	{
+	/**  Returns the instance of this class, as well as starting the thread for the clock.
+	   * @return UntimedGame The instance of this game that is returned.
+	   */
+	public static UntimedGame getUntimedGame(){
 		return untimedInstance;
 	}
 	//returns a copy of the board
-	public int[][] viewBoard()
-	{
+	public int[][] viewBoard(){
 		return gameBoard.viewBoard();
 	}
-	/* Places a tile, using the top of the queue
-	 * Return value of -1 means the tile is occupied, 
-	 * value 0 means the tile was simply place,
-	 * value >= 1 means a tile was placed, and the returned value is the score
+	/**  Method taking care of the placement of a tile.
+	 *   Takes care of all logic with board and queue.
+	 * @param x  The y coordinate of the placed tile
+	 * @param y  The x coordinate of the placed tile
+	 * @return int returns the score of the move to the caller. Value -1 means the tile was placed on an occupied space.
 	 */
-	public int placeTile(int x, int y)
-	{
+	public int placeTile(int x, int y){
 		moveScore = gameBoard.placeTile(x, y, queue.viewTop());
 		//score of -1 indicates that tile is already occupied, so nothing is done
-		if (moveScore == -1)
-		{
+		if (moveScore == -1){
 			return moveScore;
 		}
 		//remove the top of the queue and generate a new value
@@ -55,46 +59,40 @@ public class UntimedGame extends Observable
 		return moveScore;
 	}
 	//returns a copy of the queue
-	public int[] viewQueue()
-	{
+	public int[] viewQueue(){
 		return queue.viewQueue();
 	}
 	//Allows the caller to view what the top of the queue is without using it
-	public int viewTop()
-	{
+	public int viewTop(){
 		return queue.viewTop();
 	}
-	//refreshes the queue, true means the refresh happened
-	public boolean refreshQueue()
-	{
+	/**  Used to refresh the queue. Only really calls the same method in Queue.
+	   * @return boolean Returns true if successful, return false if not.
+	   */
+	public boolean refreshQueue(){
 		boolean refreshed = queue.refreshQueue();
 		setChanged();
 		notifyObservers();
 		return refreshed;
 	}
 	//checks to see if there is a refresh remaining, value true means there is
-	public boolean refreshLeft()
-	{
+	public boolean refreshLeft(){
 		return queue.refreshLeft();
 	}
 	//returns the remaining moves
-	public int getMoves()
-	{
+	public int getMoves(){
 		return moves;
 	}
 	//returns the value of totalScore
-	public int getScore()
-	{
+	public int getScore(){
 		return totalScore;
 	}
 	//returns the score acquired from a single move, before it is added to total
-	public int getMoveScore()
-	{
+	public int getMoveScore(){
 		return moveScore;
 	}
 	//returns the number of non-null (non 11) tiles on the board, to determine how close a player is to winning
-	public int getBoardStatus()
-	{
+	public int getBoardStatus(){
 		return gameBoard.boardStatus();
 	}
 }

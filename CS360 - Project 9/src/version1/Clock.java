@@ -8,7 +8,7 @@ import java.util.Observable;
 * Is an observable class, so that when a second is used, the observer updates.
 * @author  David Bell
 * @version 1.0
-* @since   2017-11-18 
+* @since   2017-17-18 
 */
 public class Clock extends Observable implements Runnable{
 

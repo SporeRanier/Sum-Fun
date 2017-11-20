@@ -1,8 +1,14 @@
 package version1;
-//Author David Bell
-/*holds all information for a single, untimed game 
- *(including Gameboard, Queue, Moves, and Score) 
- */
+
+/**
+* Class acts as the game logic for an timed game in Sum Fun.
+* Contains a board, a queue, variables for time, and for Score.
+* Also works with the clock class to keep track of time. This is done through a separate thread.
+* Updates all variables as it is told by a GUI.
+* @author  David Bell
+* @version 1.0
+* @since   2017-13-18 
+*/
 
 import java.util.Observable;
 import java.util.Observer;
@@ -30,6 +36,9 @@ public class TimedGame extends Observable implements Observer{
 		thread1 = new Thread(clock);
 	}
 	//accessor for a TimedGame
+	/**  Returns the instance of this class, as well as starting the thread for the clock.
+	   * @return TimedGame The instance of this game that is returned.
+	   */
 	public static TimedGame getTimedGame(){
 		//starts the thread for the timer
 		thread1.start();
@@ -44,11 +53,16 @@ public class TimedGame extends Observable implements Observer{
 	 * value 0 means the tile was simply place,
 	 * value >= 1 means a tile was placed, and the returned value is the score
 	 */
+	/**  Method taking care of the placement of a tile.
+	 *   Takes care of all logic with board and queue.
+	 * @param x  The y coordinate of the placed tile
+	 * @param y  The x coordinate of the placed tile
+	 * @return int returns the score of the move to the caller. Value -1 means the tile was placed on an occupied space.
+	 */
 	public int placeTile(int x, int y){
 		moveScore = gameBoard.placeTile(x, y, queue.viewTop());
 		//score of -1 indicates that tile is already occupied, so nothing is done
-		if (moveScore == -1)
-		{
+		if (moveScore == -1){
 			return moveScore;
 		}
 		//remove the top of the queue and generate a new value
@@ -68,6 +82,9 @@ public class TimedGame extends Observable implements Observer{
 		return queue.viewTop();
 	}
 	//refreshes the queue, true means the refresh happened
+	/**  Used to refresh the queue. Only really calls the same method in Queue.
+	   * @return boolean Returns true if successful, return false if not.
+	   */
 	public boolean refreshQueue(){
 		boolean refreshed = queue.refreshQueue();
 		setChanged();
@@ -107,17 +124,17 @@ public class TimedGame extends Observable implements Observer{
 		//calculates minutes/seconds from the raw seconds
 		minutes = rawSeconds / 60;
 		seconds = rawSeconds % 60;
-		//TODO:System.out.printf("%d - %d:%d\n", rawSeconds, minutes, seconds);
 		setChanged();
 		notifyObservers();
 	}
 	//Future
-	public int getTiles()
-	{
+	public int getTiles(){
 		return gameBoard.boardStatus();
 	}
 	//works as a game to test the functionality of the timed game
-
+	/** Method used in debug mode, that generates a 'winable' gameboard and queue.
+	 *  The queue and gameBoard are predetermined, and the time is set to a shorter time.
+	 */
 	public void debugGame(){
 		int [][] newBoard = new int[9][9];
 		int[] newQueue = {7,2,3,4,5};

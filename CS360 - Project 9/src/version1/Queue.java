@@ -1,8 +1,15 @@
 package version1;
-//Author David Bell
-//Class representing a queue of 5 integers (0-9)
-//Also includes logic for a single refresh of the queue
+
 import java.util.Random;
+
+/**
+* This class acts as a 5x Queue for use in Sum Fun
+* Each space on the queue stores a value 0-9, randomly generated.
+* Contains methods to generate the Queue, and interact with it.
+* @author  David Bell
+* @version 1.0
+* @since   2017-1-18 
+*/
 
 public class Queue {
 	private static Queue queueInstance = new Queue();
