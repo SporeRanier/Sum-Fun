@@ -1,16 +1,9 @@
 package version1;
 //GUI File, everything will be implemented in future
-import javax.swing.*;
-
-
-
-import java.awt.*;
-import java.awt.event.*;
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,6 +11,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.*;
 
 import javax.swing.GroupLayout.Alignment;
 
@@ -25,14 +19,14 @@ import javax.swing.GroupLayout.Alignment;
 public class TimedGameScreen extends JFrame implements Observer{
 	private JButton tiles[][];
 	private JButton offButton;
-	private JButton BGM1;
-	private JButton BGM2;
-	private JButton BGM3;
+	private JButton backGround1;
+	private JButton backGround2;
+	private JButton backGround3;
 	private JButton quitButton;
 	private JButton resetButton;
-	private File Music1;
-	private File Music2;
-	private File Music3;
+	private File music1;
+	private File music2;
+	private File music3;
 	private URI uri1;
 	private URI uri2;
 	private URI uri3;
@@ -50,11 +44,12 @@ public class TimedGameScreen extends JFrame implements Observer{
 	JPanel panelW;
 	JLabel timeLabel;
 	JLabel queueN;
-	JLabel queueT[];
+	JLabel[] queueT;
 	int moveScore;
 	JLabel scoreLabel;
 	JLabel movesLabel;
 	JLabel msLabel;
+	private JButton debugButton;
 	
 	public TimedGameScreen() {
 		setTitle("Sum Fun 0.97");
@@ -75,35 +70,35 @@ public class TimedGameScreen extends JFrame implements Observer{
 		getContentPane().add(panelN, BorderLayout.NORTH);
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		BGM1 = new JButton("Music 1");
-		BGM1.setForeground(new Color(255, 255, 0));
-		BGM1.setBackground(new Color(178, 34, 34));
-		BGM1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		BGM1.setToolTipText("Starts playing song 1");
-		panelN.add(BGM1);
+		backGround1 = new JButton("Music 1");
+		backGround1.setForeground(new Color(255, 255, 0));
+		backGround1.setBackground(new Color(178, 34, 34));
+		backGround1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		backGround1.setToolTipText("Starts playing song 1");
+		panelN.add(backGround1);
 		
-		BGM2 = new JButton("Music 2");
-		BGM2.setBackground(new Color(178, 34, 34));
-		BGM2.setForeground(Color.YELLOW);
-		BGM2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		BGM2.setToolTipText("Starts playing song 2");
-		panelN.add(BGM2);
+		backGround2 = new JButton("Music 2");
+		backGround2.setBackground(new Color(178, 34, 34));
+		backGround2.setForeground(Color.YELLOW);
+		backGround2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		backGround2.setToolTipText("Starts playing song 2");
+		panelN.add(backGround2);
 		
-		BGM3 = new JButton("Music 3");
-		BGM3.setBackground(new Color(178, 34, 34));
-		BGM3.setForeground(Color.YELLOW);
-		BGM3.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		BGM3.setToolTipText("Starts playing song 2");
-		panelN.add(BGM3);
+		backGround3 = new JButton("Music 3");
+		backGround3.setBackground(new Color(178, 34, 34));
+		backGround3.setForeground(Color.YELLOW);
+		backGround3.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		backGround3.setToolTipText("Starts playing song 2");
+		panelN.add(backGround3);
 		
 		offButton = new JButton("Mute");
 		offButton.setBackground(new Color(178, 34, 34));
 		offButton.setForeground(Color.YELLOW);
 		offButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(offButton);
-		BGM1.addActionListener(new ButtonListener());
-		BGM2.addActionListener(new ButtonListener());
-		BGM3.addActionListener(new ButtonListener());
+		backGround1.addActionListener(new ButtonListener());
+		backGround2.addActionListener(new ButtonListener());
+		backGround3.addActionListener(new ButtonListener());
 		offButton.addActionListener(new ButtonListener());
 		quitButton = new JButton("Quit");
 		quitButton.setForeground(Color.YELLOW);
@@ -112,13 +107,19 @@ public class TimedGameScreen extends JFrame implements Observer{
 		quitButton.addActionListener(new ButtonListener());
 		panelN.add(quitButton);
 		
+		debugButton = new JButton("Debug");
+		debugButton.setBackground(new Color(178, 34, 34));
+		debugButton.setForeground(Color.YELLOW);
+		debugButton.addActionListener(new ButtonListener());
+		panelN.add(debugButton);
+		
 		JLabel label = new JLabel("                                                                                                                                                                                        ");
 		panelN.add(label);
 		
-		JLabel lblNewLabel_2 = new JLabel("Queue");
-		lblNewLabel_2.setForeground(Color.YELLOW);
-		lblNewLabel_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
-		panelN.add(lblNewLabel_2);
+		JLabel queueDesc = new JLabel("Queue");
+		queueDesc.setForeground(Color.YELLOW);
+		queueDesc.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+		panelN.add(queueDesc);
 		
 		panelS = new JPanel();
 		getContentPane().add(panelS, BorderLayout.SOUTH);
@@ -144,13 +145,13 @@ public class TimedGameScreen extends JFrame implements Observer{
 		
 		
 		
-		Music1 = new File("katyusha.wav");
-		Music2 = new File("rasputin.wav");
-		Music3 = new File("sacred.wav");
+		music1 = new File("katyusha.wav");
+		music2 = new File("rasputin.wav");
+		music3 = new File("sacred.wav");
 		
-		URI uri1 = Music1.toURI();
-		URI uri2 = Music2.toURI();
-		URI uri3 = Music3.toURI();
+		URI uri1 = music1.toURI();
+		URI uri2 = music2.toURI();
+		URI uri3 = music3.toURI();
 		URL url1;
 		try {
 			url1 = uri1.toURL();
@@ -223,12 +224,12 @@ public class TimedGameScreen extends JFrame implements Observer{
 		JPanel panel2 = new JPanel();
 		panel2.setBounds(0, 137, 202, 137);
 		panel2.setBackground(Color.BLACK);
-		GridBagConstraints gbc_panel2 = new GridBagConstraints();
-		gbc_panel2.fill = GridBagConstraints.BOTH;
-		gbc_panel2.insets = new Insets(0, 0, 5, 0);
-		gbc_panel2.gridx = 0;
-		gbc_panel2.gridy = 2;
-		panelB.add(panel2, gbc_panel2);
+		GridBagConstraints gridBagcon = new GridBagConstraints();
+		gridBagcon.fill = GridBagConstraints.BOTH;
+		gridBagcon.insets = new Insets(0, 0, 5, 0);
+		gridBagcon.gridx = 0;
+		gridBagcon.gridy = 2;
+		panelB.add(panel2, gridBagcon);
 		panel2.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel label = new JLabel("Time Left:   ");
@@ -301,15 +302,13 @@ public class TimedGameScreen extends JFrame implements Observer{
 		}
 		
 	}
-	private void createBoardGui()
-	//Creates the board
-	{
-		
+	private void createBoardGui(){
+		//Creates the board
 		panelC.setLayout(new GridLayout(9,9));
 		panelC.setSize(500, 500);
 		tiles = new JButton[9][9];
 		
-		int intBoard[][] = new int[9][9];
+		int[][] intBoard = new int[9][9];
 				
 				intBoard = gameDriver.viewBoard();
 		for (int x = 0; x <= 8; x++){
@@ -382,18 +381,18 @@ public class TimedGameScreen extends JFrame implements Observer{
 
 		
 				public void actionPerformed(ActionEvent RCA) {
-					if(RCA.getSource() == BGM1){
+					if(RCA.getSource() == backGround1){
 						sound2.stop();
 						sound1.loop();
 						sound3.stop();
 					}
-					if(RCA.getSource() == BGM2){
+					if(RCA.getSource() == backGround2){
 						sound1.stop();
 						sound2.loop();
 						sound3.stop();
 						
 					}
-					if(RCA.getSource() == BGM3){
+					if(RCA.getSource() == backGround3){
 						sound1.stop();
 						sound2.stop();
 						sound3.loop();
@@ -416,21 +415,21 @@ public class TimedGameScreen extends JFrame implements Observer{
 						}
 						
 					}
-					else{
-						System.out.println("I got here2");
-					}
+					
 					if(RCA.getSource() == resetButton){
 						gameDriver.refreshQueue();						
+					}
+					if(RCA.getSource() == debugButton){
+						gameDriver.debugGame();
 					}
 					
 				}
 				
 			}
-	private class SpaceListener implements ActionListener
-	//Listener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
+	private class SpaceListener implements ActionListener{
+		
+		public void actionPerformed(ActionEvent e){
+			//Listener
 			//Get the pressed button
 			JButton pressed = (JButton) e.getSource();
 			//change the text of the space with the top value from the queue

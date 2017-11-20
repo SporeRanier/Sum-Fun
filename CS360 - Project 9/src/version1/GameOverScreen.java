@@ -28,6 +28,12 @@ public class GameOverScreen extends JFrame{
 	    // play the audio clip with the audioplayer class
 		AudioPlayer.player.start(audioStream);
 		
+		JLabel gameoverlabel = new JLabel("Game Over");
+		gameoverlabel.setHorizontalAlignment(SwingConstants.CENTER);
+		gameoverlabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 26));
+		gameoverlabel.setBounds(10, 21, 247, 76);
+		getContentPane().add(gameoverlabel);
+		
 		JButton newGame = new JButton("New Game");
 		newGame.setForeground(Color.YELLOW);
 		newGame.setBounds(10, 156, 89, 23);
@@ -51,10 +57,11 @@ public class GameOverScreen extends JFrame{
 		getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
+		/*
 		JLabel gameoveryeah = new JLabel(" ");
 		gameoveryeah.setIcon(new ImageIcon("porkygameover.png"));
 		panel.add(gameoveryeah);
-		
+		*/
 		getContentPane().add(panel);
 		setVisible(true);
 	}

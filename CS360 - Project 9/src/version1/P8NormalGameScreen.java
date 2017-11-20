@@ -1,16 +1,9 @@
 package version1;
 //GUI File, everything will be implemented in future
-import javax.swing.*;
-
-
-
-import java.awt.*;
-import java.awt.event.*;
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.event.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,30 +11,35 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.*;
 
-import javax.swing.GroupLayout.Alignment;
+
 
 
 public class P8NormalGameScreen extends JFrame implements Observer{
-	private JButton tiles[][];
+	private JButton[][] tiles;
 	private JButton offButton;
-	private JButton BGM1;
-	private JButton BGM2;
-	private JButton BGM3;
+	private JButton backGround1;
+	private JButton backGround2;
+	private JButton backGround3;
 	private JButton quitButton;
 	private JButton resetButton;
-	private File Music1;
-	private File Music2;
-	private File Music3;
+	private File music1;
+	private File music2;
+	private File music3;
+	private File music4;
 	private URI uri1;
 	private URI uri2;
 	private URI uri3;
+	private URI uri4;
 	private URL url1;
 	private URL url2;
 	private URL url3;
+	private URL url4;
 	private AudioClip sound1;
 	private AudioClip sound2;
 	private AudioClip sound3;
+	private AudioClip sound4;
 	UntimedGame gameDriver;
 	JPanel panelC;
 	JPanel panelN;
@@ -50,7 +48,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	JPanel panelW;
 	JLabel timeLabel;
 	JLabel queueN;
-	JLabel queueT[];
+	JLabel[] queueT;
 	int moveScore;
 	JLabel scoreLabel;
 	JLabel movesLabel;
@@ -75,35 +73,35 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		getContentPane().add(panelN, BorderLayout.NORTH);
 		panelN.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		BGM1 = new JButton("Music 1");
-		BGM1.setForeground(new Color(255, 255, 0));
-		BGM1.setBackground(new Color(178, 34, 34));
-		BGM1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		BGM1.setToolTipText("Starts playing song 1");
-		panelN.add(BGM1);
+		backGround1 = new JButton("Music 1");
+		backGround1.setForeground(new Color(255, 255, 0));
+		backGround1.setBackground(new Color(178, 34, 34));
+		backGround1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		backGround1.setToolTipText("Starts playing song 1");
+		panelN.add(backGround1);
 		
-		BGM2 = new JButton("Music 2");
-		BGM2.setBackground(new Color(178, 34, 34));
-		BGM2.setForeground(Color.YELLOW);
-		BGM2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		BGM2.setToolTipText("Starts playing song 2");
-		panelN.add(BGM2);
+		backGround2 = new JButton("Music 2");
+		backGround2.setBackground(new Color(178, 34, 34));
+		backGround2.setForeground(Color.YELLOW);
+		backGround2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		backGround2.setToolTipText("Starts playing song 2");
+		panelN.add(backGround2);
 		
-		BGM3 = new JButton("Music 3");
-		BGM3.setBackground(new Color(178, 34, 34));
-		BGM3.setForeground(Color.YELLOW);
-		BGM3.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		BGM3.setToolTipText("Starts playing song 2");
-		panelN.add(BGM3);
+		backGround3 = new JButton("Music 3");
+		backGround3.setBackground(new Color(178, 34, 34));
+		backGround3.setForeground(Color.YELLOW);
+		backGround3.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		backGround3.setToolTipText("Starts playing song 2");
+		panelN.add(backGround3);
 		
 		offButton = new JButton("Mute");
 		offButton.setBackground(new Color(178, 34, 34));
 		offButton.setForeground(Color.YELLOW);
 		offButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panelN.add(offButton);
-		BGM1.addActionListener(new ButtonListener());
-		BGM2.addActionListener(new ButtonListener());
-		BGM3.addActionListener(new ButtonListener());
+		backGround1.addActionListener(new ButtonListener());
+		backGround2.addActionListener(new ButtonListener());
+		backGround3.addActionListener(new ButtonListener());
 		offButton.addActionListener(new ButtonListener());
 		quitButton = new JButton("Quit");
 		quitButton.setForeground(Color.YELLOW);
@@ -115,10 +113,10 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		JLabel label = new JLabel("                                                                                                                                                                                        ");
 		panelN.add(label);
 		
-		JLabel lblNewLabel_2 = new JLabel("Queue");
-		lblNewLabel_2.setForeground(Color.YELLOW);
-		lblNewLabel_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
-		panelN.add(lblNewLabel_2);
+		JLabel queueLabel = new JLabel("Queue");
+		queueLabel.setForeground(Color.YELLOW);
+		queueLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+		panelN.add(queueLabel);
 		
 		panelS = new JPanel();
 		getContentPane().add(panelS, BorderLayout.SOUTH);
@@ -144,13 +142,13 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		
 		
 		
-		Music1 = new File("katyusha.wav");
-		Music2 = new File("rasputin.wav");
-		Music3 = new File("sacred.wav");
+		music1 = new File("katyusha.wav");
+		music2 = new File("rasputin.wav");
+		music3 = new File("sacred.wav");
 		
-		URI uri1 = Music1.toURI();
-		URI uri2 = Music2.toURI();
-		URI uri3 = Music3.toURI();
+		URI uri1 = music1.toURI();
+		URI uri2 = music2.toURI();
+		URI uri3 = music3.toURI();
 		URL url1;
 		try {
 			url1 = uri1.toURL();
@@ -180,38 +178,37 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		
 	}
 	
-	private void createQueueGui()
-	//Creates the queue and elements
-	{
+	private void createQueueGui(){
+		//Creates the queue and related GUI elements
 		panelB.setLayout(null);
-		GridBagLayout gbl_panelB = new GridBagLayout();
-		gbl_panelB.columnWidths = new int[]{202, 0};
-		gbl_panelB.rowHeights = new int[] {202, 0, 180, 70, 202};
-		gbl_panelB.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panelB.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
-		panelB.setLayout(gbl_panelB);
+		GridBagLayout gridBag = new GridBagLayout();
+		gridBag.columnWidths = new int[]{202, 0};
+		gridBag.rowHeights = new int[] {202, 0, 180, 70, 202};
+		gridBag.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBag.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		panelB.setLayout(gridBag);
 		
 		JPanel panelE = new JPanel();
 		panelE.setBounds(0, 0, 202, 137);
 		panelE.setForeground(Color.YELLOW);
 		panelE.setBackground(Color.BLACK);
-		GridBagConstraints gbc_panelE = new GridBagConstraints();
-		gbc_panelE.fill = GridBagConstraints.BOTH;
-		gbc_panelE.insets = new Insets(0, 0, 5, 0);
-		gbc_panelE.gridx = 0;
-		gbc_panelE.gridy = 0;
-		panelB.add(panelE, gbc_panelE);
+		GridBagConstraints gridBagCon = new GridBagConstraints();
+		gridBagCon.fill = GridBagConstraints.BOTH;
+		gridBagCon.insets = new Insets(0, 0, 5, 0);
+		gridBagCon.gridx = 0;
+		gridBagCon.gridy = 0;
+		panelB.add(panelE, gridBagCon);
 		panelE.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
 		panel.setBounds(0, 494, 202, 54);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 1;
-		panelB.add(panel, gbc_panel);
+		GridBagConstraints gridBagCon2 = new GridBagConstraints();
+		gridBagCon2.insets = new Insets(0, 0, 5, 0);
+		gridBagCon2.fill = GridBagConstraints.BOTH;
+		gridBagCon2.gridx = 0;
+		gridBagCon2.gridy = 1;
+		panelB.add(panel, gridBagCon2);
 		
 		resetButton = new JButton("Reset Queue!");
 		panel.add(resetButton);
@@ -223,12 +220,12 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		JPanel panel2 = new JPanel();
 		panel2.setBounds(0, 137, 202, 137);
 		panel2.setBackground(Color.BLACK);
-		GridBagConstraints gbc_panel2 = new GridBagConstraints();
-		gbc_panel2.fill = GridBagConstraints.BOTH;
-		gbc_panel2.insets = new Insets(0, 0, 5, 0);
-		gbc_panel2.gridx = 0;
-		gbc_panel2.gridy = 2;
-		panelB.add(panel2, gbc_panel2);
+		GridBagConstraints gridBagCon3 = new GridBagConstraints();
+		gridBagCon3.fill = GridBagConstraints.BOTH;
+		gridBagCon3.insets = new Insets(0, 0, 5, 0);
+		gridBagCon3.gridx = 0;
+		gridBagCon3.gridy = 2;
+		panelB.add(panel2, gridBagCon3);
 		panel2.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel label = new JLabel("Turn Count:   ");
@@ -243,10 +240,10 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		msLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panel2.add(msLabel);
 		
-		JLabel label_2 = new JLabel("Score:");
-		label_2.setForeground(Color.YELLOW);
-		label_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panel2.add(label_2);
+		JLabel scoreDesc = new JLabel("Score:");
+		scoreDesc.setForeground(Color.YELLOW);
+		scoreDesc.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panel2.add(scoreDesc);
 		
 		scoreLabel = new JLabel("0");
 		scoreLabel.setForeground(Color.YELLOW);
@@ -254,10 +251,10 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		scoreLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panel2.add(scoreLabel);
 		
-		JLabel moves_1 = new JLabel("Move Score:");
-		moves_1.setForeground(Color.YELLOW);
-		moves_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panel2.add(moves_1);
+		JLabel movesDesc = new JLabel("Move Score:");
+		movesDesc.setForeground(Color.YELLOW);
+		movesDesc.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panel2.add(movesDesc);
 		
 		movesLabel = new JLabel("0");
 		movesLabel.setForeground(Color.YELLOW);
@@ -276,22 +273,22 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		resetLabel.setForeground(Color.YELLOW);
 		panel2.add(resetLabel);
 		
-		JPanel panelSU = new JPanel();
-		panelSU.setBounds(0, 274, 202, 202);
-		panelSU.setBackground(Color.BLACK);
-		GridBagConstraints gbc_panelSU = new GridBagConstraints();
-		gbc_panelSU.fill = GridBagConstraints.BOTH;
-		gbc_panelSU.gridx = 0;
-		gbc_panelSU.gridy = 4;
-		panelB.add(panelSU, gbc_panelSU);
+		JPanel lenin = new JPanel();
+		lenin.setBounds(0, 274, 202, 202);
+		lenin.setBackground(Color.BLACK);
+		GridBagConstraints leninCon = new GridBagConstraints();
+		leninCon.fill = GridBagConstraints.BOTH;
+		leninCon.gridx = 0;
+		leninCon.gridy = 4;
+		panelB.add(lenin, leninCon);
 		
 		JLabel stalin = new JLabel("");
 		stalin.setBackground(Color.BLACK);
 		stalin.setIcon(new ImageIcon("nid8.gif"));
-		panelSU.add(stalin);
+		lenin.add(stalin);
 		
 		queueT = new JLabel[5];
-		int queueI[] = gameDriver.viewQueue();
+		int[] queueI = gameDriver.viewQueue();
 		for (int x = 0; x <= 4; x++){
 			queueT[x] = new JLabel(String.format("%d            ", queueI[x]));
 			queueT[x].setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
@@ -301,15 +298,13 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		}
 		
 	}
-	private void createBoardGui()
-	//Creates the board
-	{
-		
+	private void createBoardGui() {
+		//Creates the board
 		panelC.setLayout(new GridLayout(9,9));
 		panelC.setSize(500, 500);
 		tiles = new JButton[9][9];
 		
-		int intBoard[][] = new int[9][9];
+		int[][] intBoard = new int[9][9];
 				
 				intBoard = gameDriver.viewBoard();
 		for (int x = 0; x <= 8; x++){
@@ -323,8 +318,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 					tiles[x][y].setForeground(Color.YELLOW);
 					tiles[x][y].setBackground(new Color(178, 34, 34));
 					panelC.add(tiles[x][y]);
-				}
-				else {
+				}else {
 					tiles[x][y] = new JButton(String.format(""));
 					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 					tiles[x][y].putClientProperty("row", x);
@@ -337,17 +331,15 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 			}
 		}
 	}
-	private void updateQueue(int newQueue[])
-	//Updates queue
-	{
+	private void updateQueue(int[] newQueue){
+		//Updates queue
 		for (int x = 0; x <= 4; x++){
 			queueT[x].setText(String.format("%d            ", newQueue[x]));
 		}
 	}
 	
-	private void updateBoard(int newBoard[][])
-	//Updates board
-	{
+	private void updateBoard(int[][] newBoard){
+		//Updates board
 		for (int x = 0; x <= 8; x++){
 			for (int y = 0; y <= 8; y++){
 				if (newBoard[x][y] != 11){
@@ -355,8 +347,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 					tiles[x][y].setForeground(Color.YELLOW);
 					tiles[x][y].setBackground(new Color(178, 34, 34));
-				}
-				else {
+				}else {
 					tiles[x][y].setText(String.format(""));
 					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 					tiles[x][y].setForeground(Color.YELLOW);
@@ -369,30 +360,30 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	private class ButtonListener implements ActionListener {
 
 		
-				public void actionPerformed(ActionEvent RCA) {
-					if(RCA.getSource() == BGM1){
+				public void actionPerformed(ActionEvent actionRca) {
+					if(actionRca.getSource() == backGround1){
 						sound2.stop();
 						sound1.loop();
 						sound3.stop();
 					}
-					if(RCA.getSource() == BGM2){
+					if(actionRca.getSource() == backGround2){
 						sound1.stop();
 						sound2.loop();
 						sound3.stop();
 						
 					}
-					if(RCA.getSource() == BGM3){
+					if(actionRca.getSource() == backGround3){
 						sound1.stop();
 						sound2.stop();
 						sound3.loop();
 						
 					}
-					if(RCA.getSource() == offButton){
+					if(actionRca.getSource() == offButton){
 						sound1.stop();
 						sound2.stop();
 						sound3.stop();
 					}
-					if(RCA.getSource() == quitButton){
+					if(actionRca.getSource() == quitButton){
 						sound1.stop();
 						sound2.stop();
 						sound3.stop();
@@ -403,22 +394,19 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 							e.printStackTrace();
 						}
 						
-					}
-					else{
+					}else{
 						System.out.println("I got here2");
 					}
-					if(RCA.getSource() == resetButton){
+					if(actionRca.getSource() == resetButton){
 						gameDriver.refreshQueue();						
 					}
 					
 				}
 				
 			}
-	private class SpaceListener implements ActionListener
-	//Listener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
+	private class SpaceListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			//Listener
 			//Get the pressed button
 			JButton pressed = (JButton) e.getSource();
 			//change the text of the space with the top value from the queue
@@ -429,9 +417,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	}
 	@Override
 	public void update(Observable o, Object arg) {
-		if (gameDriver.getMoveScore() != -1)
-			
-		{
+		if (gameDriver.getMoveScore() != -1){
 			
 			scoreLabel.setText(String.format("%d", gameDriver.getScore()));
 			
@@ -442,8 +428,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		}
 		if(gameDriver.refreshLeft()){
 			resetButton.setEnabled(true);
-		}
-		else{
+		}else{
 			resetButton.setEnabled(false);
 		}
 		

@@ -51,10 +51,10 @@ public class P8Menu extends JFrame{
 		btnStartAdvancedGame.setToolTipText("In Progress");
 		getContentPane().add(btnStartAdvancedGame);
 		btnStartAdvancedGame.setBackground(new Color(178, 34, 34));
-		JButton debug = new JButton("Debug");
-		debug.setBounds(0, 198, 63, 23);
-		debug.addActionListener(new DebugButtonListener());
-		getContentPane().add(debug);
+		//JButton debug = new JButton("Debug");
+		//debug.setBounds(0, 198, 63, 23);
+		//debug.addActionListener(new DebugButtonListener());
+		//getContentPane().add(debug);
 		
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(label, BorderLayout.CENTER );
@@ -94,7 +94,7 @@ public class P8Menu extends JFrame{
 			AudioPlayer.player.stop(audioStream);
 		}
 }
-	private class DebugButtonListener implements ActionListener {
+/*	private class DebugButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent g) {
@@ -103,4 +103,5 @@ public class P8Menu extends JFrame{
 			AudioPlayer.player.stop(audioStream);
 		}
 }
+*/
 }
