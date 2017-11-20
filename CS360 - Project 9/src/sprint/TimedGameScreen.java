@@ -17,7 +17,7 @@ import javax.swing.GroupLayout.Alignment;
 
 
 public class TimedGameScreen extends JFrame implements Observer{
-	private JButton tiles[][];
+	private JButton[][] tiles;
 	private JButton offButton;
 	private JButton backGround1;
 	private JButton backGround2;
@@ -181,39 +181,37 @@ public class TimedGameScreen extends JFrame implements Observer{
 		}
 		
 	}
-	
-	private void createQueueGui()
 	//Creates the queue
-	{
+	private void createQueueGui(){
 		panelB.setLayout(null);
-		GridBagLayout gbl_panelB = new GridBagLayout();
-		gbl_panelB.columnWidths = new int[]{202, 0};
-		gbl_panelB.rowHeights = new int[] {202, 0, 180, 70, 202};
-		gbl_panelB.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panelB.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
-		panelB.setLayout(gbl_panelB);
+		GridBagLayout gblPanelB = new GridBagLayout();
+		gblPanelB.columnWidths = new int[]{202, 0};
+		gblPanelB.rowHeights = new int[] {202, 0, 180, 70, 202};
+		gblPanelB.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gblPanelB.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		panelB.setLayout(gblPanelB);
 		
 		JPanel panelE = new JPanel();
 		panelE.setBounds(0, 0, 202, 137);
 		panelE.setForeground(Color.YELLOW);
 		panelE.setBackground(Color.BLACK);
-		GridBagConstraints gbc_panelE = new GridBagConstraints();
-		gbc_panelE.fill = GridBagConstraints.BOTH;
-		gbc_panelE.insets = new Insets(0, 0, 5, 0);
-		gbc_panelE.gridx = 0;
-		gbc_panelE.gridy = 0;
-		panelB.add(panelE, gbc_panelE);
+		GridBagConstraints gbcPanelE = new GridBagConstraints();
+		gbcPanelE.fill = GridBagConstraints.BOTH;
+		gbcPanelE.insets = new Insets(0, 0, 5, 0);
+		gbcPanelE.gridx = 0;
+		gbcPanelE.gridy = 0;
+		panelB.add(panelE, gbcPanelE);
 		panelE.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
 		panel.setBounds(0, 494, 202, 54);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 1;
-		panelB.add(panel, gbc_panel);
+		GridBagConstraints gbcPanel = new GridBagConstraints();
+		gbcPanel.insets = new Insets(0, 0, 5, 0);
+		gbcPanel.fill = GridBagConstraints.BOTH;
+		gbcPanel.gridx = 0;
+		gbcPanel.gridy = 1;
+		panelB.add(panel, gbcPanel);
 		
 		resetButton = new JButton("Reset Queue!");
 		panel.add(resetButton);
@@ -414,6 +412,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						setVisible(false);
 						
 					}
 					

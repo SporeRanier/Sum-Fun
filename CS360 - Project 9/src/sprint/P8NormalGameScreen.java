@@ -40,6 +40,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	private AudioClip sound2;
 	private AudioClip sound3;
 	private AudioClip sound4;
+	private JLabel resetLabel;
 	UntimedGame gameDriver;
 	JPanel panelC;
 	JPanel panelN;
@@ -267,7 +268,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 		reset.setForeground(Color.YELLOW);
 		panel2.add(reset);
 		
-		JLabel resetLabel = new JLabel("1");
+		resetLabel = new JLabel("1");
 		resetLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		resetLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		resetLabel.setForeground(Color.YELLOW);
@@ -393,12 +394,15 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						setVisible(false);
 						
 					}else{
-						System.out.println("I got here2");
+						
 					}
 					if(actionRca.getSource() == resetButton){
-						gameDriver.refreshQueue();						
+						gameDriver.refreshQueue();
+						resetLabel.setText("0");
+						
 					}
 					
 				}
