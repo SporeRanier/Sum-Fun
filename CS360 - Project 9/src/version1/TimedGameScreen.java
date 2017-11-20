@@ -108,12 +108,13 @@ public class TimedGameScreen extends JFrame implements Observer{
 		panelN.add(quitButton);
 		
 		debugButton = new JButton("Debug");
+		debugButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		debugButton.setBackground(new Color(178, 34, 34));
 		debugButton.setForeground(Color.YELLOW);
 		debugButton.addActionListener(new ButtonListener());
 		panelN.add(debugButton);
 		
-		JLabel label = new JLabel("                                                                                                                                                                                        ");
+		JLabel label = new JLabel("                                                                                                                                                           ");
 		panelN.add(label);
 		
 		JLabel queueDesc = new JLabel("Queue");
