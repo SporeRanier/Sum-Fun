@@ -1,4 +1,4 @@
-package version1;
+package sprint;
 
 /**
 * Class acts as the game logic for an timed game in Sum Fun.

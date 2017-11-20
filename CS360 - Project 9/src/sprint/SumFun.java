@@ -1,4 +1,4 @@
-package version1;
+package sprint;
 
 
 public class SumFun {

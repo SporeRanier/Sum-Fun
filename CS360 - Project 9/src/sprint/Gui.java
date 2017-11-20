@@ -1,4 +1,4 @@
-package version1;
+package sprint;
 
 import javax.swing.*;
 import java.awt.*;

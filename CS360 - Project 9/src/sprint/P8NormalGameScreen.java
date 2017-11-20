@@ -1,9 +1,9 @@
-package version1;
+package sprint;
 //GUI File, everything will be implemented in future
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.awt.*;
 import java.awt.event.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,11 +13,11 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
 
-import javax.swing.GroupLayout.Alignment;
 
 
-public class TimedGameScreen extends JFrame implements Observer{
-	private JButton tiles[][];
+
+public class P8NormalGameScreen extends JFrame implements Observer{
+	private JButton[][] tiles;
 	private JButton offButton;
 	private JButton backGround1;
 	private JButton backGround2;
@@ -27,16 +27,20 @@ public class TimedGameScreen extends JFrame implements Observer{
 	private File music1;
 	private File music2;
 	private File music3;
+	private File music4;
 	private URI uri1;
 	private URI uri2;
 	private URI uri3;
+	private URI uri4;
 	private URL url1;
 	private URL url2;
 	private URL url3;
+	private URL url4;
 	private AudioClip sound1;
 	private AudioClip sound2;
 	private AudioClip sound3;
-	TimedGame gameDriver;
+	private AudioClip sound4;
+	UntimedGame gameDriver;
 	JPanel panelC;
 	JPanel panelN;
 	JPanel panelS;
@@ -49,12 +53,11 @@ public class TimedGameScreen extends JFrame implements Observer{
 	JLabel scoreLabel;
 	JLabel movesLabel;
 	JLabel msLabel;
-	private JButton debugButton;
 	
-	public TimedGameScreen() {
+	public P8NormalGameScreen() {
 		setTitle("Sum Fun 0.97");
 		moveScore = 0;
-		gameDriver = TimedGame.getTimedGame();
+		gameDriver = UntimedGame.getUntimedGame();
 		gameDriver.addObserver(this);
 		tiles = new JButton[9][9];
 		
@@ -107,20 +110,13 @@ public class TimedGameScreen extends JFrame implements Observer{
 		quitButton.addActionListener(new ButtonListener());
 		panelN.add(quitButton);
 		
-		debugButton = new JButton("Debug");
-		debugButton.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		debugButton.setBackground(new Color(178, 34, 34));
-		debugButton.setForeground(Color.YELLOW);
-		debugButton.addActionListener(new ButtonListener());
-		panelN.add(debugButton);
-		
-		JLabel label = new JLabel("                                                                                                                                                           ");
+		JLabel label = new JLabel("                                                                                                                                                                                        ");
 		panelN.add(label);
 		
-		JLabel queueDesc = new JLabel("Queue");
-		queueDesc.setForeground(Color.YELLOW);
-		queueDesc.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
-		panelN.add(queueDesc);
+		JLabel queueLabel = new JLabel("Queue");
+		queueLabel.setForeground(Color.YELLOW);
+		queueLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
+		panelN.add(queueLabel);
 		
 		panelS = new JPanel();
 		getContentPane().add(panelS, BorderLayout.SOUTH);
@@ -182,38 +178,37 @@ public class TimedGameScreen extends JFrame implements Observer{
 		
 	}
 	
-	private void createQueueGui()
-	//Creates the queue
-	{
+	private void createQueueGui(){
+		//Creates the queue and related GUI elements
 		panelB.setLayout(null);
-		GridBagLayout gbl_panelB = new GridBagLayout();
-		gbl_panelB.columnWidths = new int[]{202, 0};
-		gbl_panelB.rowHeights = new int[] {202, 0, 180, 70, 202};
-		gbl_panelB.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panelB.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
-		panelB.setLayout(gbl_panelB);
+		GridBagLayout gridBag = new GridBagLayout();
+		gridBag.columnWidths = new int[]{202, 0};
+		gridBag.rowHeights = new int[] {202, 0, 180, 70, 202};
+		gridBag.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBag.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		panelB.setLayout(gridBag);
 		
 		JPanel panelE = new JPanel();
 		panelE.setBounds(0, 0, 202, 137);
 		panelE.setForeground(Color.YELLOW);
 		panelE.setBackground(Color.BLACK);
-		GridBagConstraints gbc_panelE = new GridBagConstraints();
-		gbc_panelE.fill = GridBagConstraints.BOTH;
-		gbc_panelE.insets = new Insets(0, 0, 5, 0);
-		gbc_panelE.gridx = 0;
-		gbc_panelE.gridy = 0;
-		panelB.add(panelE, gbc_panelE);
+		GridBagConstraints gridBagCon = new GridBagConstraints();
+		gridBagCon.fill = GridBagConstraints.BOTH;
+		gridBagCon.insets = new Insets(0, 0, 5, 0);
+		gridBagCon.gridx = 0;
+		gridBagCon.gridy = 0;
+		panelB.add(panelE, gridBagCon);
 		panelE.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
 		panel.setBounds(0, 494, 202, 54);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 1;
-		panelB.add(panel, gbc_panel);
+		GridBagConstraints gridBagCon2 = new GridBagConstraints();
+		gridBagCon2.insets = new Insets(0, 0, 5, 0);
+		gridBagCon2.fill = GridBagConstraints.BOTH;
+		gridBagCon2.gridx = 0;
+		gridBagCon2.gridy = 1;
+		panelB.add(panel, gridBagCon2);
 		
 		resetButton = new JButton("Reset Queue!");
 		panel.add(resetButton);
@@ -225,30 +220,30 @@ public class TimedGameScreen extends JFrame implements Observer{
 		JPanel panel2 = new JPanel();
 		panel2.setBounds(0, 137, 202, 137);
 		panel2.setBackground(Color.BLACK);
-		GridBagConstraints gridBagcon = new GridBagConstraints();
-		gridBagcon.fill = GridBagConstraints.BOTH;
-		gridBagcon.insets = new Insets(0, 0, 5, 0);
-		gridBagcon.gridx = 0;
-		gridBagcon.gridy = 2;
-		panelB.add(panel2, gridBagcon);
+		GridBagConstraints gridBagCon3 = new GridBagConstraints();
+		gridBagCon3.fill = GridBagConstraints.BOTH;
+		gridBagCon3.insets = new Insets(0, 0, 5, 0);
+		gridBagCon3.gridx = 0;
+		gridBagCon3.gridy = 2;
+		panelB.add(panel2, gridBagCon3);
 		panel2.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel label = new JLabel("Time Left:   ");
+		JLabel label = new JLabel("Turn Count:   ");
 		label.setBackground(Color.BLACK);
 		label.setForeground(Color.YELLOW);
 		label.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
 		panel2.add(label);
 		
-		msLabel = new JLabel("3:00");
+		msLabel = new JLabel("50");
 		msLabel.setForeground(Color.YELLOW);
 		msLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		msLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panel2.add(msLabel);
 		
-		JLabel label_2 = new JLabel("Score:");
-		label_2.setForeground(Color.YELLOW);
-		label_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panel2.add(label_2);
+		JLabel scoreDesc = new JLabel("Score:");
+		scoreDesc.setForeground(Color.YELLOW);
+		scoreDesc.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panel2.add(scoreDesc);
 		
 		scoreLabel = new JLabel("0");
 		scoreLabel.setForeground(Color.YELLOW);
@@ -256,10 +251,10 @@ public class TimedGameScreen extends JFrame implements Observer{
 		scoreLabel.setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
 		panel2.add(scoreLabel);
 		
-		JLabel moves_1 = new JLabel("Move Score:");
-		moves_1.setForeground(Color.YELLOW);
-		moves_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		panel2.add(moves_1);
+		JLabel movesDesc = new JLabel("Move Score:");
+		movesDesc.setForeground(Color.YELLOW);
+		movesDesc.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		panel2.add(movesDesc);
 		
 		movesLabel = new JLabel("0");
 		movesLabel.setForeground(Color.YELLOW);
@@ -278,22 +273,22 @@ public class TimedGameScreen extends JFrame implements Observer{
 		resetLabel.setForeground(Color.YELLOW);
 		panel2.add(resetLabel);
 		
-		JPanel panelSU = new JPanel();
-		panelSU.setBounds(0, 274, 202, 202);
-		panelSU.setBackground(Color.BLACK);
-		GridBagConstraints gbc_panelSU = new GridBagConstraints();
-		gbc_panelSU.fill = GridBagConstraints.BOTH;
-		gbc_panelSU.gridx = 0;
-		gbc_panelSU.gridy = 4;
-		panelB.add(panelSU, gbc_panelSU);
+		JPanel lenin = new JPanel();
+		lenin.setBounds(0, 274, 202, 202);
+		lenin.setBackground(Color.BLACK);
+		GridBagConstraints leninCon = new GridBagConstraints();
+		leninCon.fill = GridBagConstraints.BOTH;
+		leninCon.gridx = 0;
+		leninCon.gridy = 4;
+		panelB.add(lenin, leninCon);
 		
 		JLabel stalin = new JLabel("");
 		stalin.setBackground(Color.BLACK);
 		stalin.setIcon(new ImageIcon("nid8.gif"));
-		panelSU.add(stalin);
+		lenin.add(stalin);
 		
 		queueT = new JLabel[5];
-		int queueI[] = gameDriver.viewQueue();
+		int[] queueI = gameDriver.viewQueue();
 		for (int x = 0; x <= 4; x++){
 			queueT[x] = new JLabel(String.format("%d            ", queueI[x]));
 			queueT[x].setFont(new Font("Showcard Gothic", Font.PLAIN, 17));
@@ -303,7 +298,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 		}
 		
 	}
-	private void createBoardGui(){
+	private void createBoardGui() {
 		//Creates the board
 		panelC.setLayout(new GridLayout(9,9));
 		panelC.setSize(500, 500);
@@ -323,8 +318,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 					tiles[x][y].setForeground(Color.YELLOW);
 					tiles[x][y].setBackground(new Color(178, 34, 34));
 					panelC.add(tiles[x][y]);
-				}
-				else {
+				}else {
 					tiles[x][y] = new JButton(String.format(""));
 					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 					tiles[x][y].putClientProperty("row", x);
@@ -337,29 +331,15 @@ public class TimedGameScreen extends JFrame implements Observer{
 			}
 		}
 	}
-	private void updateTime()
-	{
-		String time = String.format("%d:%02d", gameDriver.getMinutes(), gameDriver.getSeconds());
-		msLabel.setText(time);
-		if (gameDriver.getRawTime() == 0)
-		{
-			//TODO:
-			System.out.println("Game Over");
-		}
-	}
-	
-	
-	private void updateQueue(int newQueue[])
-	//Updates queue
-	{
+	private void updateQueue(int[] newQueue){
+		//Updates queue
 		for (int x = 0; x <= 4; x++){
 			queueT[x].setText(String.format("%d            ", newQueue[x]));
 		}
 	}
 	
-	private void updateBoard(int newBoard[][])
-	//Updates board
-	{
+	private void updateBoard(int[][] newBoard){
+		//Updates board
 		for (int x = 0; x <= 8; x++){
 			for (int y = 0; y <= 8; y++){
 				if (newBoard[x][y] != 11){
@@ -367,8 +347,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 					tiles[x][y].setForeground(Color.YELLOW);
 					tiles[x][y].setBackground(new Color(178, 34, 34));
-				}
-				else {
+				}else {
 					tiles[x][y].setText(String.format(""));
 					tiles[x][y].setFont(new Font("Showcard Gothic", Font.PLAIN, 20));
 					tiles[x][y].setForeground(Color.YELLOW);
@@ -381,30 +360,30 @@ public class TimedGameScreen extends JFrame implements Observer{
 	private class ButtonListener implements ActionListener {
 
 		
-				public void actionPerformed(ActionEvent RCA) {
-					if(RCA.getSource() == backGround1){
+				public void actionPerformed(ActionEvent actionRca) {
+					if(actionRca.getSource() == backGround1){
 						sound2.stop();
 						sound1.loop();
 						sound3.stop();
 					}
-					if(RCA.getSource() == backGround2){
+					if(actionRca.getSource() == backGround2){
 						sound1.stop();
 						sound2.loop();
 						sound3.stop();
 						
 					}
-					if(RCA.getSource() == backGround3){
+					if(actionRca.getSource() == backGround3){
 						sound1.stop();
 						sound2.stop();
 						sound3.loop();
 						
 					}
-					if(RCA.getSource() == offButton){
+					if(actionRca.getSource() == offButton){
 						sound1.stop();
 						sound2.stop();
 						sound3.stop();
 					}
-					if(RCA.getSource() == quitButton){
+					if(actionRca.getSource() == quitButton){
 						sound1.stop();
 						sound2.stop();
 						sound3.stop();
@@ -415,29 +394,26 @@ public class TimedGameScreen extends JFrame implements Observer{
 							e.printStackTrace();
 						}
 						
+					}else{
+						System.out.println("I got here2");
 					}
-					
-					if(RCA.getSource() == resetButton){
+					if(actionRca.getSource() == resetButton){
 						gameDriver.refreshQueue();						
-					}
-					if(RCA.getSource() == debugButton){
-						gameDriver.debugGame();
 					}
 					
 				}
 				
 			}
 	private class SpaceListener implements ActionListener{
-		
 		public void actionPerformed(ActionEvent e){
 			//Listener
 			//Get the pressed button
 			JButton pressed = (JButton) e.getSource();
 			//change the text of the space with the top value from the queue
-						
+	
 			//send the new value to the GameBoard for processing, which returns a score			
 			moveScore = gameDriver.placeTile((int) pressed.getClientProperty("row"), (int) pressed.getClientProperty("column"));
-			if(gameDriver.getRawTime() == 0){
+			if(gameDriver.getMoves() == 0){
 				try {
 					GameOverScreen gameoverquit = new GameOverScreen();
 					setVisible(false);
@@ -456,20 +432,17 @@ public class TimedGameScreen extends JFrame implements Observer{
 				}
 				setVisible(false);
 			}
-
+			
 		}
 	}
 	@Override
 	public void update(Observable o, Object arg) {
 		if (gameDriver.getMoveScore() != -1){
-			try {
-				scoreLabel.setText(String.format("%d", gameDriver.getScore()));
-			}catch(NullPointerException e) {
-				System.out.println("An ellusive NullPointer Error Occurred.");
-				System.out.printf("Score Is: %d", gameDriver.getScore());
-			}
 			
-			//msLabel.setText(String.format("%d", gameDriver.getMoveScore()));
+			scoreLabel.setText(String.format("%d", gameDriver.getScore()));
+			
+			
+			msLabel.setText(String.format("%d", gameDriver.getMoves()));
 			movesLabel.setText(String.format("%d", gameDriver.getMoveScore()));
 			
 		}
@@ -481,8 +454,6 @@ public class TimedGameScreen extends JFrame implements Observer{
 		
 		updateBoard(gameDriver.viewBoard());
 		updateQueue(gameDriver.viewQueue());
-		updateTime();
-
 	}
 	
 }

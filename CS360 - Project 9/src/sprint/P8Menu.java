@@ -1,4 +1,4 @@
-package version1;
+package sprint;
 //Small Window that determines game type
 import javax.swing.*;
 

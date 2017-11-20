@@ -1,4 +1,4 @@
-package version1;
+package sprint;
 
 import java.util.Random;
 
