@@ -413,6 +413,26 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	
 			//send the new value to the GameBoard for processing, which returns a score			
 			moveScore = gameDriver.placeTile((int) pressed.getClientProperty("row"), (int) pressed.getClientProperty("column"));
+			if(gameDriver.getMoves() == 0){
+				try {
+					GameOverScreen gameoverquit = new GameOverScreen();
+					setVisible(false);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			else if((gameDriver.getBoardStatus() == 84)){
+				try {
+					GameOverScreen gameoverquit = new GameOverScreen();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				setVisible(false);
+			}
+			
 		}
 	}
 	@Override
