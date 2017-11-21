@@ -475,6 +475,7 @@ public class TimedGameScreen extends JFrame implements Observer{
 				System.out.println("An ellusive NullPointer Error Occurred.");
 				System.out.printf("Score Is: %d\n", gameDriver.getScore());
 			}
+			//Building Error
 							
 		}
 		if(gameDriver.refreshLeft()){
