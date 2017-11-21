@@ -465,12 +465,17 @@ public class TimedGameScreen extends JFrame implements Observer{
 				scoreLabel.setText(String.format("%d", gameDriver.getScore()));
 			}catch(NullPointerException e) {
 				System.out.println("An ellusive NullPointer Error Occurred.");
-				System.out.printf("Score Is: %d", gameDriver.getScore());
+				System.out.printf("Score Is: %d\n", gameDriver.getScore());
 			}
 			
 			//msLabel.setText(String.format("%d", gameDriver.getMoveScore()));
-			movesLabel.setText(String.format("%d", gameDriver.getMoveScore()));
-			
+			try{
+				movesLabel.setText(String.format("%d", gameDriver.getMoveScore()));
+			}catch(NullPointerException e) {
+				System.out.println("An ellusive NullPointer Error Occurred.");
+				System.out.printf("Score Is: %d\n", gameDriver.getScore());
+			}
+							
 		}
 		if(gameDriver.refreshLeft()){
 			resetButton.setEnabled(true);
