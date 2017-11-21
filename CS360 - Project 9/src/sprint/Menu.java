@@ -22,13 +22,13 @@ import javax.imageio.*;
 import java.awt.Color;
 
 
-public class P8Menu extends JFrame{
+public class Menu extends JFrame{
 	//Constructor
 	private BufferedImage kremlin;
 	AudioStream audioStream;
 	
 	
-	public P8Menu() throws IOException {
+	public Menu() throws IOException {
 		setTitle("SumFun 0.97");
 		setSize(480, 260);
 		getContentPane().setLayout(null);
@@ -77,7 +77,7 @@ public class P8Menu extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			P8NormalGameScreen game1 = new P8NormalGameScreen();
+			NormalGameScreen game1 = new NormalGameScreen();
 			setVisible(false);
 			AudioPlayer.player.stop(audioStream);
 			

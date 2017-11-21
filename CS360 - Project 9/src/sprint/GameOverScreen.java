@@ -79,7 +79,7 @@ public class GameOverScreen extends JFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == newGame){
-					P8NormalGameScreen newGame = new P8NormalGameScreen();
+					NormalGameScreen newGame = new NormalGameScreen();
 					System.out.println("I am in the if");
 					setVisible(false);
 				}
@@ -88,7 +88,7 @@ public class GameOverScreen extends JFrame{
 					setVisible(false);
 				}
 				if(e.getSource() == highScores){
-					Top10Scores top10 = new Top10Scores();
+					HighScoreScreen top10 = new HighScoreScreen();
 					setVisible(false);
 				}
 				if(e.getSource() == btnQuitGame){

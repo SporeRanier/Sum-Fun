@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Gui extends JFrame
+public class OldGui extends JFrame
 {
 	private final int WINDOW_WIDTH = 500;
 	private final int WINDOW_HEIGHT = 500;
@@ -20,10 +20,10 @@ public class Gui extends JFrame
 	int testQueue[] = new int[5];
 		
 	public static void main(String[] args){
-		new Gui();
+		new OldGui();
 	}
 	
-	public Gui()
+	public OldGui()
 	{
 		gameBoard = GameBoard.getBoard();
 		queue = Queue.getQueue();

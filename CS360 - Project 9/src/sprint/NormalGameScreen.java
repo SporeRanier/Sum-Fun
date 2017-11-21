@@ -16,7 +16,7 @@ import javax.swing.*;
 
 
 
-public class P8NormalGameScreen extends JFrame implements Observer{
+public class NormalGameScreen extends JFrame implements Observer{
 	private JButton[][] tiles;
 	private JButton offButton;
 	private JButton backGround1;
@@ -55,7 +55,7 @@ public class P8NormalGameScreen extends JFrame implements Observer{
 	JLabel movesLabel;
 	JLabel msLabel;
 	
-	public P8NormalGameScreen() {
+	public NormalGameScreen() {
 		setTitle("Sum Fun 0.97");
 		moveScore = 0;
 		gameDriver = UntimedGame.getUntimedGame();

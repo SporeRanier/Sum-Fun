@@ -10,8 +10,8 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-public class Top10Scores extends JFrame implements Observer{
-	public Top10Scores() {
+public class HighScoreScreen extends JFrame implements Observer{
+	public HighScoreScreen() {
 		setTitle("High Scores!");
 		getContentPane().setBackground(new Color(178, 34, 34));
 		setSize(800, 600);
